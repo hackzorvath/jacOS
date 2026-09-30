@@ -1,0 +1,115 @@
+/* ============================================================
+   SOURCE OF TRUTH TERMINAL
+============================================================ */
+
+.truth-terminal {
+  position: fixed;
+
+  z-index: 99990;
+
+  left: 50%;
+  top: 50%;
+
+  width: min(680px, calc(100vw - 40px));
+  min-height: 330px;
+
+  transform:
+    translate(-50%, -50%);
+
+  overflow: hidden;
+
+  border:
+    1px solid rgba(255, 255, 255, 0.16);
+
+  border-radius: 9px;
+
+  background:
+    rgba(38, 7, 29, 0.985);
+
+  color: #f4f4f4;
+
+  box-shadow:
+    0 24px 70px rgba(0, 0, 0, 0.6);
+}
+
+.truth-terminal__titlebar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  height: 38px;
+
+  padding-left: 14px;
+
+  background:
+    linear-gradient(
+      #3c3b40,
+      #29282d
+    );
+
+  color: #eee;
+
+  font-size: 0.82rem;
+}
+
+.truth-terminal__titlebar button {
+  align-self: stretch;
+
+  width: 44px;
+
+  border: 0;
+
+  background: transparent;
+  color: #eee;
+
+  font-size: 1.3rem;
+
+  cursor: pointer;
+}
+
+.truth-terminal__titlebar button:hover {
+  background: #c42b1c;
+  color: white;
+}
+
+.truth-terminal__output {
+  min-height: 292px;
+
+  margin: 0;
+
+  padding: 22px;
+
+  overflow: auto;
+
+  color: #efefef;
+
+  font-family:
+    "SFMono-Regular",
+    Consolas,
+    "Liberation Mono",
+    monospace;
+
+  font-size: 0.9rem;
+  line-height: 1.6;
+
+  white-space: pre-wrap;
+}
+
+.truth-terminal__cursor {
+  animation:
+    truth-cursor-blink 900ms
+    steps(1)
+    infinite;
+}
+
+@keyframes truth-cursor-blink {
+  0%,
+  48% {
+    opacity: 1;
+  }
+
+  49%,
+  100% {
+    opacity: 0;
+  }
+}

@@ -1,3 +1,7 @@
+/* ============================================================
+   FILE BROWSER
+============================================================ */
+
 .file-browser,
 .file-browser * {
   box-sizing: border-box;
@@ -6,41 +10,64 @@
 .file-browser {
   display: flex;
   flex-direction: column;
+
   width: 100%;
   height: 100%;
+
   min-width: 0;
   min-height: 0;
+
   background: #faf9f6;
   color: #302d32;
+
   font-family: inherit;
   font-size: 0.875rem;
 }
 
-/* Navigation */
+
+/* ============================================================
+   NAVIGATION
+============================================================ */
 
 .file-browser__toolbar {
   display: flex;
   align-items: center;
+
   gap: 6px;
+
   flex-shrink: 0;
+
   padding: 9px 10px;
+
   border-bottom: 1px solid #cecac3;
-  background: linear-gradient(#f2f0ed, #e8e5e0);
+
+  background:
+    linear-gradient(
+      #f2f0ed,
+      #e8e5e0
+    );
 }
 
 .file-browser__navigation-button {
   display: grid;
   place-items: center;
+
   flex-shrink: 0;
+
   width: 34px;
   height: 32px;
+
   padding: 0;
+
   border: 1px solid #c9c4bc;
   border-radius: 5px;
+
   background: #f9f8f6;
   color: #39353b;
+
   font: inherit;
   font-size: 1.2rem;
+
   cursor: pointer;
 }
 
@@ -54,30 +81,46 @@
   cursor: default;
 }
 
+
+/* ============================================================
+   BREADCRUMBS
+============================================================ */
+
 .file-browser__breadcrumbs {
   display: flex;
   align-items: center;
+
   flex: 1;
+
   min-width: 0;
+
   margin-left: 6px;
+
   overflow-x: auto;
 }
 
 .file-browser__breadcrumb {
   display: flex;
   align-items: center;
+
   flex-shrink: 0;
 }
 
 .file-browser__breadcrumb button {
   min-height: 32px;
+
   padding: 5px 10px;
+
   border: 0;
   border-radius: 4px;
+
   background: transparent;
   color: #49434d;
+
   font: inherit;
+
   white-space: nowrap;
+
   cursor: pointer;
 }
 
@@ -88,30 +131,44 @@
 .file-browser__breadcrumb button[aria-current="page"] {
   background: #ddd7e2;
   color: #512d6d;
+
   font-weight: 700;
 }
 
 .file-browser__separator {
   padding: 0 3px;
+
   color: #8c858f;
 }
 
-/* Folder contents */
+
+/* ============================================================
+   FOLDER CONTENTS
+============================================================ */
 
 .file-browser__content {
   flex: 1;
+
   min-height: 0;
+
   padding: 16px;
+
   overflow: auto;
 }
 
 .file-browser__grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(108px, 1fr));
+
+  grid-template-columns:
+    repeat(auto-fill, minmax(108px, 1fr));
+
   align-content: start;
+
   gap: 12px 8px;
+
   margin: 0;
   padding: 0;
+
   list-style: none;
 }
 
@@ -119,21 +176,34 @@
   min-width: 0;
 }
 
+
+/* ============================================================
+   FILE / FOLDER ITEMS
+============================================================ */
+
 .file-browser__item {
   display: flex;
   flex-direction: column;
   align-items: center;
+
   gap: 12px;
+
   width: 100%;
   min-height: 112px;
+
   padding: 14px 6px 8px;
+
   border: 1px solid transparent;
   border-radius: 5px;
+
   background: transparent;
   color: inherit;
+
   font: inherit;
   text-align: center;
+
   cursor: default;
+
   user-select: none;
 }
 
@@ -143,6 +213,7 @@
 
 .file-browser__item.is-selected {
   border-color: #bda6ce;
+
   background: #e5d9ee;
   color: #3f2055;
 }
@@ -154,93 +225,390 @@
 
 .file-browser__name {
   max-width: 100%;
+
   line-height: 1.35;
+
   overflow-wrap: anywhere;
 }
 
-/* Folder icons */
+
+/* ============================================================
+   BASE ICON
+============================================================ */
 
 .file-browser__icon {
   position: relative;
+
   display: block;
+
   flex-shrink: 0;
+
   width: 54px;
   height: 42px;
+
   margin-top: 7px;
 }
+
+
+/* ============================================================
+   FOLDER ICON
+============================================================ */
 
 .file-browser__icon--folder {
   border: 1px solid #a96b25;
   border-radius: 3px 5px 5px 5px;
-  background: linear-gradient(#d49c51, #bd8137);
-  box-shadow: 0 2px 2px rgb(0 0 0 / 12%);
+
+  background:
+    linear-gradient(
+      #d49c51,
+      #bd8137
+    );
+
+  box-shadow:
+    0 2px 2px rgb(0 0 0 / 12%);
 }
 
 .file-browser__icon--folder::before {
   content: "";
+
   position: absolute;
+
   top: -7px;
   left: -1px;
+
   width: 25px;
   height: 8px;
+
   border: 1px solid #a96b25;
   border-bottom: 0;
+
   border-radius: 4px 5px 0 0;
+
   background: #d49c51;
 }
 
 .file-browser__icon--folder::after {
   content: "";
+
   position: absolute;
+
   inset: 7px -1px -1px;
+
   border: 1px solid #b97a2e;
   border-radius: 4px;
-  background: linear-gradient(#efbf75, #dca04d);
+
+  background:
+    linear-gradient(
+      #efbf75,
+      #dca04d
+    );
 }
 
-/* Web shortcut icons */
+
+/* ============================================================
+   PLAIN FILE ICON
+============================================================ */
+
+.file-browser__icon--file {
+  display: grid;
+  place-items: center;
+
+  width: 38px;
+  height: 48px;
+
+  margin-top: 1px;
+
+  border: 1px solid #aaa3b2;
+  border-radius: 3px;
+
+  background:
+    linear-gradient(
+      #fff,
+      #eeeaf1
+    );
+
+  color: #6b6470;
+
+  font-size: 1.45rem;
+  line-height: 1;
+
+  box-shadow:
+    0 2px 2px rgb(0 0 0 / 10%);
+}
+
+
+/* ============================================================
+   WEB SHORTCUT ICON
+============================================================ */
 
 .file-browser__icon--link {
   display: grid;
   place-items: center;
+
   width: 35px;
+
   border: 1px solid #aaa3b2;
   border-radius: 3px;
-  background: linear-gradient(#fff, #e9e4ef);
+
+  background:
+    linear-gradient(
+      #fff,
+      #e9e4ef
+    );
+
   color: #76508f;
+
   font-size: 1.8rem;
   line-height: 1;
-  box-shadow: 0 2px 2px rgb(0 0 0 / 10%);
+
+  box-shadow:
+    0 2px 2px rgb(0 0 0 / 10%);
 }
 
-/* Empty folders and status bar */
+
+/* ============================================================
+   CUSTOM ICON
+   Used for special filesystem items such as mirrors.
+============================================================ */
+
+.file-browser__icon--custom {
+  display: grid;
+  place-items: center;
+
+  width: 54px;
+  height: 48px;
+
+  margin-top: 1px;
+
+  background: none;
+  border: none;
+
+  font-size: 2.5rem;
+  line-height: 1;
+}
+
+
+/* ============================================================
+   EMPTY FOLDER
+============================================================ */
 
 .file-browser__empty {
   display: grid;
   place-items: center;
+
   min-height: 100%;
+
   padding: 24px;
+
   color: #8b858d;
+
   text-align: center;
 }
+
+
+/* ============================================================
+   STATUS BAR
+============================================================ */
 
 .file-browser__status {
   display: flex;
   align-items: center;
   justify-content: space-between;
+
   gap: 12px;
+
   flex-shrink: 0;
+
   min-height: 30px;
+
   padding: 6px 12px;
+
   border-top: 1px solid #cecac3;
+
   background: #eeece7;
   color: #6a636e;
+
   font-size: 0.75rem;
 }
 
 .file-browser__selection {
   min-width: 0;
+
   overflow: hidden;
+
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+
+/* ============================================================
+   MIRRORS / SMOKE REVEAL
+============================================================ */
+
+.file-browser__item.is-smoking {
+  pointer-events: none;
+}
+
+/*
+ * The mirror itself shrinks and fades away.
+ */
+.file-browser__item.is-smoking .file-browser__icon {
+  animation:
+    mirrors-disappear 750ms ease-out forwards;
+}
+
+/*
+ * Two pseudo-elements create overlapping smoke clouds.
+ */
+.file-browser__item.is-smoking .file-browser__icon::before,
+.file-browser__item.is-smoking .file-browser__icon::after {
+  content: "";
+
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  width: 26px;
+  height: 26px;
+
+  border-radius: 50%;
+
+  background:
+    rgba(225, 225, 225, 0.92);
+
+  opacity: 0;
+
+  pointer-events: none;
+}
+
+.file-browser__item.is-smoking .file-browser__icon::before {
+  animation:
+    smoke-puff-left 750ms ease-out forwards;
+
+  box-shadow:
+    -14px 8px 0 rgba(210, 210, 210, 0.78),
+    12px -6px 0 rgba(240, 240, 240, 0.85),
+    22px 8px 0 rgba(190, 190, 190, 0.70),
+    -6px -16px 0 rgba(235, 235, 235, 0.75);
+}
+
+.file-browser__item.is-smoking .file-browser__icon::after {
+  animation:
+    smoke-puff-right 750ms ease-out forwards;
+
+  box-shadow:
+    15px 5px 0 rgba(215, 215, 215, 0.82),
+    -12px -10px 0 rgba(245, 245, 245, 0.85),
+    -24px 6px 0 rgba(195, 195, 195, 0.72),
+    6px -18px 0 rgba(230, 230, 230, 0.76);
+}
+
+
+/* ============================================================
+   MIRROR DISAPPEAR ANIMATION
+============================================================ */
+
+@keyframes mirrors-disappear {
+  0% {
+    opacity: 1;
+
+    transform:
+      scale(1)
+      rotate(0deg);
+  }
+
+  30% {
+    opacity: 1;
+
+    transform:
+      scale(0.95)
+      rotate(-3deg);
+  }
+
+  60% {
+    opacity: 0.6;
+
+    transform:
+      scale(0.7)
+      rotate(5deg);
+  }
+
+  100% {
+    opacity: 0;
+
+    transform:
+      scale(0.25)
+      rotate(12deg);
+  }
+}
+
+
+/* ============================================================
+   SMOKE ANIMATIONS
+============================================================ */
+
+@keyframes smoke-puff-left {
+  0% {
+    opacity: 0;
+
+    transform:
+      translate(-50%, -50%)
+      scale(0.2);
+  }
+
+  15% {
+    opacity: 0.95;
+  }
+
+  55% {
+    opacity: 0.8;
+  }
+
+  100% {
+    opacity: 0;
+
+    transform:
+      translate(-105%, -120%)
+      scale(3.4);
+  }
+}
+
+@keyframes smoke-puff-right {
+  0% {
+    opacity: 0;
+
+    transform:
+      translate(-50%, -50%)
+      scale(0.2);
+  }
+
+  15% {
+    opacity: 0.95;
+  }
+
+  55% {
+    opacity: 0.8;
+  }
+
+  100% {
+    opacity: 0;
+
+    transform:
+      translate(5%, -125%)
+      scale(3.7);
+  }
+}
+
+
+/* ============================================================
+   REDUCED MOTION
+============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .file-browser__item.is-smoking .file-browser__icon,
+  .file-browser__item.is-smoking .file-browser__icon::before,
+  .file-browser__item.is-smoking .file-browser__icon::after {
+    animation-duration: 1ms;
+  }
 }

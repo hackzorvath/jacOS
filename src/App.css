@@ -76,11 +76,14 @@
   background: transparent;
   color: white;
   font: inherit;
-  cursor: pointer;
-  position: static;
-  inset: auto;
+  cursor: default;
+  position: absolute;
   margin: 0;
   transform: none;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  z-index: 5;
 }
 
 .terminal-window {
@@ -137,21 +140,17 @@
   background: rgba(255, 255, 255, 0.16);
 }
 
-.desktop-shortcuts {
-  z-index: 1;
-  display: grid;
-  gap: 16px;
-  position: absolute;
-  inset: 48px 12px auto auto;
-  width: max-content;
-  margin: 0;
-  padding: 0;
-  transform: none;
-}
 
-.desktop-shortcut:hover {
+.desktop-shortcut:hover,
+.desktop-shortcut.is-selected {
   background: rgba(255, 255, 255, 0.12);
   border-color: rgba(255, 255, 255, 0.2);
+}
+
+.desktop-shortcut.is-dragging {
+  cursor: grabbing;
+  background: rgba(255, 255, 255, 0.16);
+  border-color: rgba(255, 255, 255, 0.3);
 }
 
 .desktop-shortcut:focus-visible {
@@ -220,4 +219,20 @@
     height: 32vh;
   }
 
+}
+
+.mess-window {
+  left: 275px;
+  top: 155px;
+  width: 560px;
+  height: 390px;
+  max-width: calc(100% - 120px);
+}
+
+.trash-window {
+  left: 160px;
+  top: 105px;
+  width: 520px;
+  height: 370px;
+  max-width: calc(100% - 120px);
 }

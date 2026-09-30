@@ -6,25 +6,36 @@ import Dock from './Dock.jsx'
 import NotesApp from './NotesApp.jsx'
 import TerminalApp from './TerminalApp.jsx'
 import CoursesApp from './CoursesApp.jsx'
+import TrashApp from './TrashApp.jsx'
+import MessApp from './MessApp.jsx'
+import DesktopShortcut from './DesktopShortcut.jsx'
 
 const APP_LABELS = {
   notes: 'Emacs',
   terminal: 'Terminal',
   courses: 'Courses',
+  mess: 'mess',
+  trash: 'Trash',
 }
 
 const WINDOW_LABELS = {
   notes: 'notes.txt — Emacs',
   terminal: 'Terminal',
   courses: 'Courses',
+  mess: 'mess — Files',
+  trash: 'Trash',
 }
 
 export default function App() {
+  const [selectedDesktopItem, setSelectedDesktopItem] = useState(null)
+
   const [desktop, setDesktop] = useState({
     windows: {
       notes: 'open',
       terminal: 'open',
       courses: 'closed',
+      mess: 'closed',
+      trash: 'closed',
     },
     order: ['notes', 'terminal'],
   })
@@ -83,12 +94,23 @@ export default function App() {
     openApp('terminal')
   }
 
+  function openTrash() {
+    openApp('trash')
+  }
+
   function getZIndex(id) {
     return 20 + Math.max(0, order.indexOf(id)) * 10
   }
 
   return (
-    <main className="desktop">
+    <main
+      className="desktop"
+      onPointerDown={event => {
+        if (event.target === event.currentTarget) {
+          setSelectedDesktopItem(null)
+        }
+      }}
+    >
       <header className="topbar">
         <div className="topbar__left">
           <span className="topbar__activities">
@@ -127,30 +149,32 @@ export default function App() {
       <Dock
         onOpenNotes={openNotes}
         onOpenTerminal={openTerminal}
+        onOpenTrash={openTrash}
         activeApp={activeApp}
         notesOpen={windows.notes !== 'closed'}
         terminalOpen={windows.terminal !== 'closed'}
+        trashOpen={windows.trash !== 'closed'}
       />
 
-      <div className="desktop-shortcuts">
-        <button
-          type="button"
-          className="desktop-shortcut"
-          onClick={() => openApp('courses')}
-          aria-label="Open Courses"
-        >
-          <span
-            className="desktop-shortcut__icon"
-            aria-hidden="true"
-          >
-            📁
-          </span>
+      <DesktopShortcut
+        id="courses"
+        label="Courses"
+        icon="📁"
+        selected={selectedDesktopItem === 'courses'}
+        onSelect={() => setSelectedDesktopItem('courses')}
+        onOpen={() => openApp('courses')}
+        position={{ top: 48, right: 12 }}
+      />
 
-          <span className="desktop-shortcut__label">
-            Courses
-          </span>
-        </button>
-      </div>
+      <DesktopShortcut
+        id="mess"
+        label="mess"
+        icon="📁"
+        selected={selectedDesktopItem === 'mess'}
+        onSelect={() => setSelectedDesktopItem('mess')}
+        onOpen={() => openApp('mess')}
+        position={{ top: 158, right: 12 }}
+      />
 
       <DesktopWindow
         windowId="notes"
@@ -199,6 +223,34 @@ export default function App() {
         zIndex={getZIndex('courses')}
       >
         <CoursesApp />
+      </DesktopWindow>
+
+      <DesktopWindow
+        windowId="mess"
+        title="mess — Files"
+        icon={<span aria-hidden="true">📁</span>}
+        className="mess-window"
+        hidden={windows.mess !== 'open'}
+        onMinimize={() => hideApp('mess', 'minimized')}
+        onClose={() => hideApp('mess', 'closed')}
+        onFocus={() => focusApp('mess')}
+        zIndex={getZIndex('mess')}
+      >
+        <MessApp />
+      </DesktopWindow>
+
+      <DesktopWindow
+        windowId="trash"
+        title="Trash — Files"
+        icon={<span aria-hidden="true">🗑</span>}
+        className="trash-window"
+        hidden={windows.trash !== 'open'}
+        onMinimize={() => hideApp('trash', 'minimized')}
+        onClose={() => hideApp('trash', 'closed')}
+        onFocus={() => focusApp('trash')}
+        zIndex={getZIndex('trash')}
+      >
+        <TrashApp />
       </DesktopWindow>
     </main>
   )

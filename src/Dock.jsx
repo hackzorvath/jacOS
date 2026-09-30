@@ -23,9 +23,11 @@ function AppIcon({ id, file }) {
 export default function Dock({
   onOpenNotes,
   onOpenTerminal,
+  onOpenTrash,
   activeApp,
   notesOpen,
   terminalOpen,
+  trashOpen,
 }) {
   function appClass(id, isOpen) {
     return [
@@ -78,12 +80,12 @@ export default function Dock({
         <div className="dock-separator" />
         <button
           type="button"
-          className="dock-item"
-          aria-label="Trash — coming soon"
-          disabled
+          className={appClass('trash', trashOpen)}
+          aria-label={activeApp === 'trash' ? 'Trash — active' : 'Open Trash'}
+          onClick={onOpenTrash}
         >
           <AppIcon id="trash" file="trash.png" />
-          <span className="dock-tooltip">Trash — coming soon</span>
+          <span className="dock-tooltip">Trash</span>
         </button>
       </div>
     </nav>

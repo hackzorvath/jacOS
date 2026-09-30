@@ -1,10 +1,13 @@
 import { useState } from 'react'
+import { useSystemError } from './SystemError.jsx'
 import './FileBrowser.css'
 
 export default function FileBrowser({
   root,
   singleClickOpen = false,
 }) {
+  const { showSystemError } = useSystemError()
+
   const [navigation, setNavigation] = useState({
     path: [],
     history: [],
@@ -18,7 +21,9 @@ export default function FileBrowser({
     const parent = folders[folders.length - 1]
 
     const child = parent.children?.find(
-      item => item.id === id && item.type === 'folder',
+      item =>
+        item.id === id &&
+        item.type === 'folder',
     )
 
     if (!child) break
@@ -26,21 +31,34 @@ export default function FileBrowser({
     folders.push(child)
   }
 
-  const currentFolder = folders[folders.length - 1]
-  const items = currentFolder.children ?? []
-  const selectedItem = items.find(item => item.id === selectedId)
+  const currentFolder =
+    folders[folders.length - 1]
+
+  const items =
+    currentFolder.children ?? []
+
+  const selectedItem =
+    items.find(
+      item => item.id === selectedId
+    )
 
   function navigateTo(path) {
     if (
       path.length === navigation.path.length &&
-      path.every((id, index) => id === navigation.path[index])
+      path.every(
+        (id, index) =>
+          id === navigation.path[index]
+      )
     ) {
       return
     }
 
     setNavigation(previous => ({
       path,
-      history: [...previous.history, previous.path],
+      history: [
+        ...previous.history,
+        previous.path,
+      ],
     }))
 
     setSelectedId(null)
@@ -48,11 +66,20 @@ export default function FileBrowser({
 
   function goBack() {
     setNavigation(previous => {
-      if (previous.history.length === 0) return previous
+      if (
+        previous.history.length === 0
+      ) {
+        return previous
+      }
 
       return {
-        path: previous.history[previous.history.length - 1],
-        history: previous.history.slice(0, -1),
+        path:
+          previous.history[
+            previous.history.length - 1
+          ],
+
+        history:
+          previous.history.slice(0, -1),
       }
     })
 
@@ -60,14 +87,94 @@ export default function FileBrowser({
   }
 
   function openItem(item) {
-    if (item.type === 'folder') {
-      navigateTo([...navigation.path, item.id])
+    /*
+     * Restricted items use the global
+     * Windows XP error.
+     */
+    if (item.restricted) {
+      showSystemError()
       return
     }
 
-    if (item.url) {
-      window.open(item.url, '_blank', 'noopener,noreferrer')
+    /*
+     * Some filesystem items perform a
+     * custom action instead of opening
+     * normally.
+     *
+     * mirrors uses this.
+     */
+    if (item.onOpen) {
+      item.onOpen()
+      return
     }
+
+    /*
+     * Normal folders navigate inside
+     * the file browser.
+     */
+    if (item.type === 'folder') {
+      navigateTo([
+        ...navigation.path,
+        item.id,
+      ])
+
+      return
+    }
+
+    /*
+     * Ordinary files currently have no
+     * default action.
+     */
+    if (item.type === 'file') {
+      return
+    }
+
+    /*
+     * Link-style items open externally.
+     */
+    if (item.url) {
+      window.open(
+        item.url,
+        '_blank',
+        'noopener,noreferrer',
+      )
+    }
+  }
+
+  function getIconClass(item) {
+    if (item.icon) {
+      return 'file-browser__icon--custom'
+    }
+
+    if (item.type === 'folder') {
+      return 'file-browser__icon--folder'
+    }
+
+    if (item.type === 'file') {
+      return 'file-browser__icon--file'
+    }
+
+    return 'file-browser__icon--link'
+  }
+
+  function getIconContent(item) {
+    if (item.icon) {
+      return item.icon
+    }
+
+    if (item.type === 'file') {
+      return '▤'
+    }
+
+    if (item.type !== 'folder') {
+      return '↗'
+    }
+
+    /*
+     * Normal folders are drawn by CSS,
+     * so they don't need text content.
+     */
+    return ''
   }
 
   return (
@@ -81,7 +188,9 @@ export default function FileBrowser({
           className="file-browser__navigation-button"
           aria-label="Back"
           title="Back"
-          disabled={navigation.history.length === 0}
+          disabled={
+            navigation.history.length === 0
+          }
           onClick={goBack}
         >
           ←
@@ -92,51 +201,67 @@ export default function FileBrowser({
           className="file-browser__navigation-button"
           aria-label="Up one folder"
           title="Up one folder"
-          disabled={navigation.path.length === 0}
+          disabled={
+            navigation.path.length === 0
+          }
           onClick={() => {
-            navigateTo(navigation.path.slice(0, -1))
+            navigateTo(
+              navigation.path.slice(0, -1)
+            )
           }}
         >
           ↑
         </button>
 
         <div className="file-browser__breadcrumbs">
-          {folders.map((folder, index) => (
-            <div
-              key={folder.id}
-              className="file-browser__breadcrumb"
-            >
-              {index > 0 && (
-                <span
-                  className="file-browser__separator"
-                  aria-hidden="true"
-                >
-                  ›
-                </span>
-              )}
-
-              <button
-                type="button"
-                aria-current={
-                  index === folders.length - 1
-                    ? 'page'
-                    : undefined
-                }
-                onClick={() => {
-                  navigateTo(navigation.path.slice(0, index))
-                }}
+          {folders.map(
+            (folder, index) => (
+              <div
+                key={folder.id}
+                className="file-browser__breadcrumb"
               >
-                {folder.name}
-              </button>
-            </div>
-          ))}
+                {index > 0 && (
+                  <span
+                    className="file-browser__separator"
+                    aria-hidden="true"
+                  >
+                    ›
+                  </span>
+                )}
+
+                <button
+                  type="button"
+                  aria-current={
+                    index ===
+                    folders.length - 1
+                      ? 'page'
+                      : undefined
+                  }
+                  onClick={() => {
+                    navigateTo(
+                      navigation.path.slice(
+                        0,
+                        index,
+                      )
+                    )
+                  }}
+                >
+                  {folder.name}
+                </button>
+              </div>
+            )
+          )}
         </div>
       </nav>
 
       <div
         className="file-browser__content"
         onClick={event => {
-          if (!event.target.closest('.file-browser__item')) {
+          if (
+            !event.target.closest(
+              '.file-browser__item'
+            )
+          ) {
             setSelectedId(null)
           }
         }}
@@ -144,7 +269,9 @@ export default function FileBrowser({
         {items.length > 0 ? (
           <ul
             className="file-browser__grid"
-            aria-label={`${currentFolder.name} contents`}
+            aria-label={
+              `${currentFolder.name} contents`
+            }
           >
             {items.map(item => (
               <li key={item.id}>
@@ -152,19 +279,34 @@ export default function FileBrowser({
                   type="button"
                   className={[
                     'file-browser__item',
-                    selectedId === item.id ? 'is-selected' : '',
-                  ].filter(Boolean).join(' ')}
-                  aria-pressed={selectedId === item.id}
+
+                    selectedId === item.id
+                      ? 'is-selected'
+                      : '',
+
+                    item.className ?? '',
+                  ]
+                    .filter(Boolean)
+                    .join(' ')}
+                  aria-pressed={
+                    selectedId === item.id
+                  }
                   aria-label={
                     item.type === 'folder'
                       ? `${item.name}, folder`
-                      : `${item.name}, opens in a new tab`
+                      : item.type === 'file'
+                        ? `${item.name}, file`
+                        : `${item.name}, opens in a new tab`
                   }
                   title={
                     item.description ??
-                    (item.type === 'folder'
-                      ? 'Folder'
-                      : 'Opens in a new tab')
+                    (
+                      item.type === 'folder'
+                        ? 'Folder'
+                        : item.type === 'file'
+                          ? 'File'
+                          : 'Opens in a new tab'
+                    )
                   }
                   onClick={() => {
                     setSelectedId(item.id)
@@ -179,7 +321,9 @@ export default function FileBrowser({
                     }
                   }}
                   onKeyDown={event => {
-                    if (event.key === 'Enter') {
+                    if (
+                      event.key === 'Enter'
+                    ) {
                       event.preventDefault()
 
                       if (!event.repeat) {
@@ -191,13 +335,11 @@ export default function FileBrowser({
                   <span
                     className={[
                       'file-browser__icon',
-                      item.type === 'folder'
-                        ? 'file-browser__icon--folder'
-                        : 'file-browser__icon--link',
+                      getIconClass(item),
                     ].join(' ')}
                     aria-hidden="true"
                   >
-                    {item.type !== 'folder' && '↗'}
+                    {getIconContent(item)}
                   </span>
 
                   <span className="file-browser__name">
@@ -219,7 +361,10 @@ export default function FileBrowser({
         aria-live="polite"
       >
         <span>
-          {items.length} {items.length === 1 ? 'item' : 'items'}
+          {items.length}{' '}
+          {items.length === 1
+            ? 'item'
+            : 'items'}
         </span>
 
         {selectedItem && (
