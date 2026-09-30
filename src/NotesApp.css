@@ -1,0 +1,143 @@
+/* Notes editor, line-number gutter, menus and save-status bar. */
+
+.notes-app .emacs-menubar {
+  height: 28px;
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  background: #edece7;
+  border-bottom: 1px solid #c7c6c1;
+  color: #343434;
+  font-size: 0.73rem;
+  gap: 12px;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.notes-app .emacs-download {
+  margin-left: auto;
+  border: 0;
+  padding: 3px 8px;
+  border-radius: 4px;
+  color: #343434;
+  font: inherit;
+  cursor: pointer;
+  position: sticky;
+  right: 0;
+  background: #edece7;
+}
+
+.notes-app .editor {
+  display: grid;
+  background: #faf9f4;
+  overflow: hidden;
+  height: 100%;
+  min-height: 0;
+  grid-template-columns: 4ch minmax(0, 1fr);
+}
+
+.notes-app .editor-lines {
+  height: 100%;
+  padding: 8px 8px 8px 0;
+  background: #efeee9;
+  border-right: 1px solid #deddd6;
+  color: #99978e;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  font-size: 0.78rem;
+  line-height: 1.56rem;
+  text-align: right;
+  user-select: none;
+  white-space: pre;
+  min-height: 0;
+  overflow: hidden;
+  padding-left: 4px;
+  padding-right: 6px;
+}
+
+.notes-app .editor-text {
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  display: block;
+  resize: none;
+  border: 0;
+  outline: 0;
+  margin: 0;
+  padding: 8px 13px;
+  overflow: auto;
+  background: #faf9f4;
+  color: #282828;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  font-size: 0.78rem;
+  line-height: 1.56rem;
+  tab-size: 4;
+  white-space: pre;
+  scrollbar-color: #b8b6af #ecebe6;
+  scrollbar-width: thin;
+}
+
+.notes-app .editor-text::-webkit-scrollbar {
+  width: 11px;
+  height: 11px;
+}
+
+.notes-app .editor-text::-webkit-scrollbar-track {
+  background: #ecebe6;
+}
+
+.notes-app .editor-text::-webkit-scrollbar-thumb {
+  background: #b8b6af;
+  border: 2px solid #ecebe6;
+  border-radius: 6px;
+}
+
+.notes-app .editor-text::-webkit-scrollbar-thumb:hover {
+  background: #999790;
+}
+
+.notes-app .emacs-footer {
+  height: 25px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 0 9px;
+  background: #d6d5ce;
+  border-top: 1px solid #bbb9b2;
+  color: #2d2d2d;
+  font-family: "SFMono-Regular", Consolas, monospace;
+  font-size: 0.67rem;
+}
+
+.notes-app .save-status {
+  font-weight: bold;
+}
+
+.notes-app .save-status--saved {
+  color: #4f7527;
+}
+
+.notes-app .save-status--modified {
+  color: #a45d00;
+}
+
+.notes-app .footer-spacer {
+  flex: 1;
+}
+
+.notes-app {
+  display: grid;
+  grid-template-rows: 28px minmax(0, 1fr) 25px;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.notes-app .editor-lines>div>div {
+  height: 1.56rem;
+}
+
+.notes-app .emacs-menubar>* {
+  flex-shrink: 0;
+}

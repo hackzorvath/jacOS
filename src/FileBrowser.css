@@ -1,0 +1,246 @@
+.file-browser,
+.file-browser * {
+  box-sizing: border-box;
+}
+
+.file-browser {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  background: #faf9f6;
+  color: #302d32;
+  font-family: inherit;
+  font-size: 0.875rem;
+}
+
+/* Navigation */
+
+.file-browser__toolbar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+  padding: 9px 10px;
+  border-bottom: 1px solid #cecac3;
+  background: linear-gradient(#f2f0ed, #e8e5e0);
+}
+
+.file-browser__navigation-button {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 34px;
+  height: 32px;
+  padding: 0;
+  border: 1px solid #c9c4bc;
+  border-radius: 5px;
+  background: #f9f8f6;
+  color: #39353b;
+  font: inherit;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.file-browser__navigation-button:hover:not(:disabled) {
+  background: #fff;
+  border-color: #9d959f;
+}
+
+.file-browser__navigation-button:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.file-browser__breadcrumbs {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  min-width: 0;
+  margin-left: 6px;
+  overflow-x: auto;
+}
+
+.file-browser__breadcrumb {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.file-browser__breadcrumb button {
+  min-height: 32px;
+  padding: 5px 10px;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: #49434d;
+  font: inherit;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.file-browser__breadcrumb button:hover {
+  background: #ddd7e2;
+}
+
+.file-browser__breadcrumb button[aria-current="page"] {
+  background: #ddd7e2;
+  color: #512d6d;
+  font-weight: 700;
+}
+
+.file-browser__separator {
+  padding: 0 3px;
+  color: #8c858f;
+}
+
+/* Folder contents */
+
+.file-browser__content {
+  flex: 1;
+  min-height: 0;
+  padding: 16px;
+  overflow: auto;
+}
+
+.file-browser__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(108px, 1fr));
+  align-content: start;
+  gap: 12px 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.file-browser__grid > li {
+  min-width: 0;
+}
+
+.file-browser__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  min-height: 112px;
+  padding: 14px 6px 8px;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: center;
+  cursor: default;
+  user-select: none;
+}
+
+.file-browser__item:hover {
+  background: #efebf2;
+}
+
+.file-browser__item.is-selected {
+  border-color: #bda6ce;
+  background: #e5d9ee;
+  color: #3f2055;
+}
+
+.file-browser button:focus-visible {
+  outline: 2px solid #76508f;
+  outline-offset: -2px;
+}
+
+.file-browser__name {
+  max-width: 100%;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+
+/* Folder icons */
+
+.file-browser__icon {
+  position: relative;
+  display: block;
+  flex-shrink: 0;
+  width: 54px;
+  height: 42px;
+  margin-top: 7px;
+}
+
+.file-browser__icon--folder {
+  border: 1px solid #a96b25;
+  border-radius: 3px 5px 5px 5px;
+  background: linear-gradient(#d49c51, #bd8137);
+  box-shadow: 0 2px 2px rgb(0 0 0 / 12%);
+}
+
+.file-browser__icon--folder::before {
+  content: "";
+  position: absolute;
+  top: -7px;
+  left: -1px;
+  width: 25px;
+  height: 8px;
+  border: 1px solid #a96b25;
+  border-bottom: 0;
+  border-radius: 4px 5px 0 0;
+  background: #d49c51;
+}
+
+.file-browser__icon--folder::after {
+  content: "";
+  position: absolute;
+  inset: 7px -1px -1px;
+  border: 1px solid #b97a2e;
+  border-radius: 4px;
+  background: linear-gradient(#efbf75, #dca04d);
+}
+
+/* Web shortcut icons */
+
+.file-browser__icon--link {
+  display: grid;
+  place-items: center;
+  width: 35px;
+  border: 1px solid #aaa3b2;
+  border-radius: 3px;
+  background: linear-gradient(#fff, #e9e4ef);
+  color: #76508f;
+  font-size: 1.8rem;
+  line-height: 1;
+  box-shadow: 0 2px 2px rgb(0 0 0 / 10%);
+}
+
+/* Empty folders and status bar */
+
+.file-browser__empty {
+  display: grid;
+  place-items: center;
+  min-height: 100%;
+  padding: 24px;
+  color: #8b858d;
+  text-align: center;
+}
+
+.file-browser__status {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-shrink: 0;
+  min-height: 30px;
+  padding: 6px 12px;
+  border-top: 1px solid #cecac3;
+  background: #eeece7;
+  color: #6a636e;
+  font-size: 0.75rem;
+}
+
+.file-browser__selection {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
