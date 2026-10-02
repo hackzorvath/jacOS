@@ -168,7 +168,7 @@ export default function App() {
 
       <DesktopShortcut
         id="mess"
-        label="mess"
+        label="Mess"
         icon="📁"
         selected={selectedDesktopItem === 'mess'}
         onSelect={() => setSelectedDesktopItem('mess')}

@@ -89,13 +89,6 @@ export default function MessApp() {
       return
     }
 
-    /*
-     * Placeholder sound.
-     *
-     * This file intentionally does not exist yet.
-     * If we find something suitably ridiculous later,
-     * just put it at this path.
-     */
     const smokeSound = new Audio(
       `${import.meta.env.BASE_URL}audio/smoke-puff.mp3`
     )

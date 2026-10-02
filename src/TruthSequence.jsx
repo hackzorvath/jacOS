@@ -1,6 +1,7 @@
 import {
   createContext,
   useContext,
+  useEffect,
   useRef,
   useState,
 } from 'react'
@@ -28,6 +29,25 @@ export function TruthSequenceProvider({ children }) {
   const cancelledRef = useRef(false)
   const dialupRef = useRef(null)
 
+  /*
+   * Preload the dial-up sound once.
+   */
+  useEffect(() => {
+    const audio = new Audio(
+      `${import.meta.env.BASE_URL}audio/dial-up.mp3`
+    )
+
+    audio.preload = 'auto'
+    audio.load()
+
+    dialupRef.current = audio
+
+    return () => {
+      audio.pause()
+      dialupRef.current = null
+    }
+  }, [])
+
   function append(text) {
     setOutput(previous => previous + text)
   }
@@ -36,7 +56,11 @@ export function TruthSequenceProvider({ children }) {
     setOutput(previous => previous + text + '\n')
   }
 
-  async function typeLine(
+  /*
+   * Type text without automatically adding
+   * a newline afterward.
+   */
+  async function typeText(
     text,
     speed = 55,
   ) {
@@ -50,44 +74,104 @@ export function TruthSequenceProvider({ children }) {
       await wait(speed)
     }
 
+    return true
+  }
+
+  /*
+   * Type text and then press Enter.
+   */
+  async function typeLine(
+    text,
+    speed = 55,
+  ) {
+    const completed = await typeText(
+      text,
+      speed,
+    )
+
+    if (!completed) {
+      return false
+    }
+
     append('\n')
 
     return true
   }
 
-  function stopDialup() {
-    if (!dialupRef.current) {
+  /*
+   * Safari/iPadOS may reject audio that first
+   * attempts to play several seconds after the
+   * original user interaction.
+   *
+   * Touch the audio element immediately from
+   * the truth.exe activation.
+   */
+  function unlockDialup() {
+    const audio = dialupRef.current
+
+    if (!audio) {
       return
     }
 
-    dialupRef.current.pause()
-    dialupRef.current.currentTime = 0
-    dialupRef.current = null
+    audio.volume = 0
+    audio.currentTime = 0
+
+    audio.play()
+      .then(() => {
+        audio.pause()
+        audio.currentTime = 0
+        audio.volume = 1
+      })
+      .catch(error => {
+        console.error(
+          'Could not unlock dial-up audio:',
+          error,
+        )
+
+        audio.volume = 1
+      })
   }
 
   function playDialup() {
-    /*
-     * Deliberate placeholder.
-     *
-     * Nothing needs to exist here yet.
-     */
-    const audio = new Audio(
-      `${import.meta.env.BASE_URL}audio/dial_up.mp3`
-    )
+    const audio = dialupRef.current
 
-    audio.preload = 'auto'
+    if (!audio) {
+      return
+    }
 
-    dialupRef.current = audio
+    audio.pause()
+    audio.currentTime = 0
+    audio.volume = 1
 
-    audio.play().catch(() => {
-      // No dial-up sound yet.
+    audio.play().catch(error => {
+      console.error(
+        'Dial-up audio failed:',
+        error,
+      )
     })
+  }
+
+  function stopDialup() {
+    const audio = dialupRef.current
+
+    if (!audio) {
+      return
+    }
+
+    audio.pause()
+    audio.currentTime = 0
   }
 
   async function startTruthSequence() {
     if (runningRef.current) {
       return
     }
+
+    /*
+     * Do this before the first await so Safari
+     * still sees the original double-click.
+     */
+    unlockDialup()
 
     runningRef.current = true
     cancelledRef.current = false
@@ -101,7 +185,7 @@ export function TruthSequenceProvider({ children }) {
     await wait(350)
 
     await typeLine(
-      '$ ./src/truth.exe',
+      'jacOS $> ./src/truth.exe',
       22,
     )
 
@@ -127,13 +211,29 @@ export function TruthSequenceProvider({ children }) {
       85,
     )
 
-    await wait(650)
+    await wait(750)
 
-    await typeLine(
-      'Should I... kill it?',
+    /*
+     * "Should I" at ordinary typewriter speed.
+     *
+     * Do NOT press Enter yet.
+     */
+    await typeText(
+      'Should I',
       80,
     )
 
+    /*
+     * The ellipsis develops one uncomfortable
+     * thought at a time.
+     */
+    await typeText('.', 500)
+    await typeText('.', 500)
+    await typeText('.', 500)
+
+    /*
+     * Sit with that question for a moment.
+     */
     await wait(1100)
 
     /*
@@ -141,25 +241,43 @@ export function TruthSequenceProvider({ children }) {
      */
     playDialup()
 
-    await typeLine('.', 180)
-
-    await wait(550)
-
-    await typeLine('.', 180)
-
-    await wait(550)
-
-    await typeLine('.', 180)
+    /*
+     * Finish the sentence on the same line.
+     */
+    await typeLine(
+      ' kill it?',
+      80,
+    )
 
     /*
-     * Give the modem a moment to scream.
+     * Three vertical dots occupy the remainder
+     * of the roughly six-second modem sound.
+     *
+     * kill it? takes ~700ms to type, leaving
+     * approximately 5.3 seconds for these.
      */
-    await wait(2200)
+    await wait(700)
 
+    await typeLine('.', 180)
+    await wait(1450)
+
+    await typeLine('.', 180)
+    await wait(1450)
+
+    await typeLine('.', 180)
+    await wait(1450)
+
+    /*
+     * The six-second modem scream should be
+     * essentially finished by now.
+     */
     stopDialup()
 
-    await wait(400)
+    await wait(350)
 
+    /*
+     * Microsoft has entered the chat.
+     */
     await typeLine(
       'MICROSOFT OVERRIDE',
       95,
