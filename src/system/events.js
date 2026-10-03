@@ -1,0 +1,1 @@
+export const RESET_TRANSIENT_UI = 'jacos:reset-transient-ui'

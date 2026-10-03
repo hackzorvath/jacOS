@@ -33,13 +33,17 @@ const PALETTE = [
 ]
 
 const DETAILS = [
-  ['Style', 'Ubuntu / GNOME'],
-  ['Host', 'Sask Polytech Workstation'],
-  ['Interface', 'React'],
-  ['Shell', 'Website terminal'],
-  ['Theme', 'Sask Polytech'],
-  ['Editor', 'Emacs — Notes'],
-  ['Files', 'Courses'],
+  ['OS', 'Ubuntu 22.04.5 LTS (Jammy Jellyfish)'],
+  ['Host', 'SPT Workstation - jacOS'],
+  ['Kernel', '5.15.0-generic'],
+  ['Uptime', '2 hours, 14 mins'],
+  ['Packages', '1676 (dpkg), 12 (snap)'],
+  ['Shell', 'bash 5.1.16'],
+  ['DE', 'GNOME 42.9'],
+  ['WM', 'Mutter'],
+  ['Theme', 'Yaru [GTK2/3]'],
+  ['Icons', 'Yaru [GTK2/3]'],
+  ['Terminal', 'gnome-terminal'],
   ['Role', 'Instructor'],
   ['Campus', 'Regina'],
 ]
@@ -73,7 +77,7 @@ export default function UbuntuFetch() {
 
       <div className="ubuntu-fetch__info">
         <p className="ubuntu-fetch__user">
-          jack@workstation
+          spt-faculty@jacOS
         </p>
 
         <p

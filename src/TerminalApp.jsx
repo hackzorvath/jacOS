@@ -1,6 +1,7 @@
 import './TerminalApp.css'
 import { useEffect, useRef, useState } from 'react'
 import UbuntuFetch from './UbuntuFetch.jsx'
+import { SYSTEM_PROMPT } from './system/identity.js'
 
 const WELCOME = [
   'Welcome to Jack’s instructor workstation.',
@@ -138,7 +139,7 @@ export default function TerminalApp({
             {entry.command !== null && (
               <div className="terminal-command">
                 <span className="prompt-user">
-                  jack@workstation
+                  {SYSTEM_PROMPT}
                 </span>
 
                 <span className="prompt-path">:~$ </span>
@@ -164,7 +165,7 @@ export default function TerminalApp({
       >
         <label htmlFor="terminal-command-input">
           <span className="prompt-user">
-            jack@workstation
+            {SYSTEM_PROMPT}
           </span>
 
           <span className="prompt-path">:~$ </span>

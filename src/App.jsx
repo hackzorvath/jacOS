@@ -2,6 +2,7 @@ import { useState } from 'react'
 import './App.css'
 
 import DesktopWindow from './DesktopWindow.jsx'
+import TopBar from './TopBar.jsx'
 import Dock from './Dock.jsx'
 import NotesApp from './NotesApp.jsx'
 import TerminalApp from './TerminalApp.jsx'
@@ -9,22 +10,6 @@ import CoursesApp from './CoursesApp.jsx'
 import TrashApp from './TrashApp.jsx'
 import MessApp from './MessApp.jsx'
 import DesktopShortcut from './DesktopShortcut.jsx'
-
-const APP_LABELS = {
-  notes: 'Emacs',
-  terminal: 'Terminal',
-  courses: 'Courses',
-  mess: 'mess',
-  trash: 'Trash',
-}
-
-const WINDOW_LABELS = {
-  notes: 'notes.txt — Emacs',
-  terminal: 'Terminal',
-  courses: 'Courses',
-  mess: 'mess — Files',
-  trash: 'Trash',
-}
 
 export default function App() {
   const [selectedDesktopItem, setSelectedDesktopItem] = useState(null)
@@ -111,40 +96,11 @@ export default function App() {
         }
       }}
     >
-      <header className="topbar">
-        <div className="topbar__left">
-          <span className="topbar__activities">
-            Activities
-          </span>
-
-          <span className="topbar__app">
-            {APP_LABELS[activeApp] ?? 'Desktop'}
-          </span>
-
-          <div className="window-tray">
-            {Object.entries(windows)
-              .filter(([, status]) => status === 'minimized')
-              .map(([id]) => (
-                <button
-                  key={id}
-                  type="button"
-                  onClick={() => openApp(id)}
-                >
-                  {WINDOW_LABELS[id]}
-                </button>
-              ))}
-          </div>
-        </div>
-
-        <div className="topbar__clock">
-          Jack’s Workstation
-        </div>
-
-        <div className="topbar__right">
-          <span>◖))</span>
-          <span>⏻</span>
-        </div>
-      </header>
+      <TopBar
+        activeApp={activeApp}
+        windows={windows}
+        onRestoreWindow={openApp}
+      />
 
       <Dock
         onOpenNotes={openNotes}
@@ -192,7 +148,7 @@ export default function App() {
 
       <DesktopWindow
         windowId="terminal"
-        title="jack@workstation: ~"
+        title="spt-faculty@jacOS: ~"
         icon={
           <span className="terminal-mini-icon">&gt;_</span>
         }

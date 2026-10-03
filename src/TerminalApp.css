@@ -1,44 +1,38 @@
 /* Terminal scrolling, history, command prompt and input. */
 
-.terminal-prompt {
-  display: flex;
-  align-items: center;
-  margin-top: 8px;
-}
-
-.prompt-user {
-  color: #54d5a0;
-  font-weight: bold;
-}
-
-.prompt-path {
-  margin-right: 7px;
-  color: #a8b7ff;
-}
-
-.terminal-prompt input {
-  flex: 1;
-  border: 0;
-  outline: none;
-  background: transparent;
-  color: white;
-  font: inherit;
-  caret-color: white;
-}
-
 .terminal-app {
   height: 100%;
-  padding: 18px;
+  padding: 14px 18px 16px;
   overflow: auto;
-  background: var(--terminal-bg);
-  color: var(--terminal-text);
-  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
-  font-size: 0.82rem;
-  line-height: 1.5;
+
+  /*
+   * Classic Ubuntu/GNOME terminal aubergine.
+   * Slight transparency lets the desktop ghost through.
+   */
+  background: rgba(48, 10, 36, 0.92);
+  color: #f2eef2;
+
+  font-family:
+    "Ubuntu Mono",
+    "SFMono-Regular",
+    Consolas,
+    "Liberation Mono",
+    Menlo,
+    monospace;
+
+  font-size: 0.78rem;
+  line-height: 1.32;
+
+  box-sizing: border-box;
 }
 
+
+/* -------------------------------------------------------------------------- */
+/* History                                                                    */
+/* -------------------------------------------------------------------------- */
+
 .terminal-entry {
-  margin-bottom: 14px;
+  margin-bottom: 10px;
 }
 
 .terminal-command {
@@ -46,21 +40,96 @@
 }
 
 .terminal-output {
-  margin: 4px 0 0;
+  margin: 3px 0 0;
+
   font: inherit;
+  line-height: inherit;
+
   white-space: pre-wrap;
   overflow-wrap: anywhere;
 }
 
-.terminal-app .terminal-prompt {
-  margin-top: 8px;
+
+/* -------------------------------------------------------------------------- */
+/* Prompt                                                                     */
+/* -------------------------------------------------------------------------- */
+
+.terminal-prompt {
+  display: flex;
+  align-items: center;
+
+  margin-top: 6px;
 }
 
-.terminal-app .terminal-prompt label {
+.prompt-user {
+  color: #54d5a0;
+  font-weight: 700;
+}
+
+.prompt-path {
+  margin-right: 5px;
+  color: #a8b7ff;
+}
+
+.terminal-prompt label {
   flex-shrink: 0;
   white-space: nowrap;
 }
 
-.terminal-app .terminal-prompt input {
+.terminal-prompt input {
+  flex: 1;
   min-width: 0;
+
+  border: 0;
+  outline: none;
+
+  padding: 0;
+  margin: 0;
+
+  background: transparent;
+  color: inherit;
+
+  font: inherit;
+  line-height: inherit;
+
+  caret-color: white;
+}
+
+
+/* -------------------------------------------------------------------------- */
+/* Selection                                                                  */
+/* -------------------------------------------------------------------------- */
+
+.terminal-app ::selection {
+  background: rgba(233, 84, 32, 0.55);
+  color: white;
+}
+
+
+/* -------------------------------------------------------------------------- */
+/* Scrollbar                                                                  */
+/* -------------------------------------------------------------------------- */
+
+.terminal-app {
+  scrollbar-width: thin;
+  scrollbar-color:
+    rgba(255, 255, 255, 0.22)
+    transparent;
+}
+
+.terminal-app::-webkit-scrollbar {
+  width: 8px;
+}
+
+.terminal-app::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.terminal-app::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.22);
+  border-radius: 4px;
+}
+
+.terminal-app::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.32);
 }

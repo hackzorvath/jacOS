@@ -1,99 +1,157 @@
 .ubuntu-fetch {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   align-items: flex-start;
-  gap: 20px 28px;
 
-  margin: 0 0 20px;
+  gap: 22px;
+
+  margin: 0 0 12px;
   max-width: 100%;
 }
 
+
+/* -------------------------------------------------------------------------- */
+/* Ubuntu ASCII                                                               */
+/* -------------------------------------------------------------------------- */
+
 .ubuntu-fetch .ubuntu-fetch__logo {
-  flex: 0 1 auto;
-  min-width: 0;
-  max-width: 100%;
+  flex: 0 0 auto;
 
   margin: 0;
   padding: 0;
-  overflow-x: auto;
+
+  overflow: visible;
 
   background: transparent;
   border: 0;
 
   font-family: inherit;
-  font-size: 0.72rem;
+  font-size: 0.68rem;
   font-weight: 700;
-  line-height: 1.15;
+  line-height: 1.02;
+
   letter-spacing: 0;
   font-variant-ligatures: none;
 
   white-space: pre;
-  overflow-wrap: normal;
-  word-break: normal;
 
   user-select: none;
 }
 
+
+/* Ubuntu-ish magenta */
+
 .ubuntu-fetch__purple {
-  color: #732181;
+  color: #d45ad8;
 }
+
+
+/* Light portions of the Ubuntu logo */
 
 .ubuntu-fetch__grey {
-  color: #a7a8aa;
+  color: #d8d4d8;
 }
+
+
+/* -------------------------------------------------------------------------- */
+/* Fetch information                                                          */
+/* -------------------------------------------------------------------------- */
 
 .ubuntu-fetch__info {
-  flex: 1 1 230px;
+  flex: 1 1 auto;
   min-width: 0;
 
-  color: #ece8ed;
-  line-height: 1.5;
-  overflow-wrap: anywhere;
+  color: #f0edf0;
+
+  font-size: 0.78rem;
+  line-height: 1.28;
+
+  overflow-wrap: normal;
 }
+
 
 .ubuntu-fetch .ubuntu-fetch__user {
   margin: 0;
 
-  color: #a7a8aa;
+  color: #d45ad8;
+
   font-weight: 700;
 }
 
+
 .ubuntu-fetch .ubuntu-fetch__divider {
-  margin: 0 0 8px;
-  color: #a7a8aa;
+  margin: 0 0 5px;
+
+  color: #d8d4d8;
 }
+
+
+/* -------------------------------------------------------------------------- */
+/* Details                                                                    */
+/* -------------------------------------------------------------------------- */
 
 .ubuntu-fetch__details {
   margin: 0;
 }
 
+
 .ubuntu-fetch__details > div {
   display: flex;
   align-items: baseline;
-  gap: 1ch;
+
+  gap: 0.7ch;
 }
+
 
 .ubuntu-fetch__details dt {
   flex-shrink: 0;
-  color: #a7a8aa;
+
+  color: #d45ad8;
+
   font-weight: 700;
 }
+
 
 .ubuntu-fetch__details dd {
   min-width: 0;
   margin: 0;
+
+  color: #f0edf0;
 }
+
+
+/* -------------------------------------------------------------------------- */
+/* Sask Polytech palette                                                      */
+/* -------------------------------------------------------------------------- */
 
 .ubuntu-fetch__palette {
   display: flex;
-  flex-wrap: wrap;
-  gap: 0;
 
-  margin-top: 14px;
+  margin-top: 8px;
+
+  gap: 0;
 }
+
 
 .ubuntu-fetch__palette > span {
   display: block;
-  width: 28px;
-  height: 22px;
+
+  width: 26px;
+  height: 14px;
+}
+
+
+/* -------------------------------------------------------------------------- */
+/* Smaller terminal windows                                                   */
+/* -------------------------------------------------------------------------- */
+
+@media (max-width: 720px) {
+  .ubuntu-fetch {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .ubuntu-fetch .ubuntu-fetch__logo {
+    font-size: 0.62rem;
+  }
 }

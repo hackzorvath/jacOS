@@ -1,0 +1,292 @@
+/* ==========================================================================
+   jacOS Top Bar
+   GNOME/Ubuntu-inspired desktop panel
+   ========================================================================== */
+
+.topbar {
+    position: absolute;
+    z-index: 100;
+
+    top: 0;
+    left: 0;
+    right: 0;
+
+    height: 30px;
+
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+
+    padding: 0 15px;
+
+    background: rgba(23, 23, 26, 0.97);
+    color: #f2f2f2;
+
+    font-size: 0.82rem;
+
+    box-sizing: border-box;
+
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.4);
+
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+
+/* ==========================================================================
+   Left side
+   ========================================================================== */
+
+.topbar__left {
+    min-width: 0;
+
+    display: flex;
+    align-items: center;
+
+    gap: 25px;
+}
+
+.topbar__activities {
+    flex-shrink: 0;
+
+    font-weight: 500;
+}
+
+.topbar__app {
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+
+    gap: 7px;
+
+    font-weight: 500;
+}
+
+
+/* ==========================================================================
+   Centre clock
+   ========================================================================== */
+
+.topbar__clock {
+    justify-self: center;
+
+    font-weight: 500;
+    white-space: nowrap;
+
+    cursor: default;
+}
+
+
+/* ==========================================================================
+   Right side
+   ========================================================================== */
+
+.topbar__right {
+    justify-self: end;
+
+    display: flex;
+    align-items: center;
+
+    gap: 6px;
+}
+
+
+/* ==========================================================================
+   jacOS controls
+   Radio / light mode
+   ========================================================================== */
+
+.topbar__control,
+.topbar__status {
+    height: 24px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 5px;
+
+    margin: 0;
+    padding: 0 6px;
+
+    border: 0;
+    border-radius: 5px;
+
+    background: transparent;
+    color: inherit;
+
+    font: inherit;
+    font-size: 0.76rem;
+    line-height: 1;
+
+    cursor: default;
+
+    transition:
+        background 100ms ease,
+        color 100ms ease;
+}
+
+.topbar__control:hover,
+.topbar__status:hover {
+    background: rgba(255, 255, 255, 0.12);
+}
+
+.topbar__control:focus-visible,
+.topbar__status:focus-visible {
+    outline: 1px solid rgba(255, 255, 255, 0.8);
+    outline-offset: 1px;
+}
+
+.topbar__control--active {
+    background: rgba(255, 255, 255, 0.14);
+}
+
+.topbar__control--active:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.topbar__control-label {
+    font-size: 0.72rem;
+    white-space: nowrap;
+}
+
+
+/* ==========================================================================
+   GNOME-ish system indicators
+   Network / sound / power
+   ========================================================================== */
+
+.topbar__status {
+    width: 25px;
+
+    flex-shrink: 0;
+
+    padding: 0;
+}
+
+.topbar__status svg {
+    display: block;
+
+    width: 15px;
+    height: 15px;
+}
+
+
+/* ==========================================================================
+   Divider between jacOS controls and system controls
+   ========================================================================== */
+
+.topbar__separator {
+    width: 1px;
+    height: 15px;
+
+    flex-shrink: 0;
+
+    margin: 0 3px;
+
+    background: rgba(255, 255, 255, 0.18);
+}
+
+
+/* ==========================================================================
+   Minimized window tray
+   ========================================================================== */
+
+.window-tray {
+    min-width: 0;
+
+    display: flex;
+    align-items: center;
+
+    gap: 6px;
+
+    overflow: hidden;
+}
+
+.window-tray button {
+    height: 22px;
+    max-width: 150px;
+
+    flex-shrink: 1;
+
+    margin: 0;
+    padding: 0 9px;
+
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 5px;
+
+    overflow: hidden;
+
+    background: rgba(255, 255, 255, 0.08);
+    color: white;
+
+    font: inherit;
+    font-size: 0.69rem;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    cursor: pointer;
+
+    transition: background 100ms ease;
+}
+
+.window-tray button:hover {
+    background: rgba(255, 255, 255, 0.16);
+}
+
+.window-tray button:focus-visible {
+    outline: 1px solid rgba(255, 255, 255, 0.8);
+    outline-offset: 1px;
+}
+
+
+/* ==========================================================================
+   Small-screen cleanup
+   ========================================================================== */
+
+@media (max-width: 900px) {
+    .topbar {
+        padding: 0 10px;
+    }
+
+    .topbar__left {
+        gap: 14px;
+    }
+
+    .topbar__control-label {
+        display: none;
+    }
+
+    .window-tray button {
+        max-width: 100px;
+    }
+}
+
+
+@media (max-width: 700px) {
+    .topbar__app {
+        display: none;
+    }
+
+    .window-tray {
+        display: none;
+    }
+
+    .topbar__left {
+        gap: 0;
+    }
+
+    .topbar__right {
+        gap: 3px;
+    }
+
+    .topbar__separator {
+        margin: 0 1px;
+    }
+
+    .topbar__status {
+        width: 22px;
+    }
+}
