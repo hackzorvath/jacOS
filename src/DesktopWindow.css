@@ -1,30 +1,58 @@
 /* Shared window frame, title bar, controls and resize handles. */
 
+
+/* ==========================================================================
+   Window frame
+   ========================================================================== */
+
 .window {
   position: absolute;
   overflow: hidden;
-  border: 1px solid rgba(0, 0, 0, 0.9);
+
+  border: 1px solid var(--border);
   border-radius: var(--window-radius);
-  box-shadow: var(--shadow);
+
+  background: var(--window-bg);
+  color: var(--window-text);
+
+  box-shadow: 0 12px 30px var(--shadow);
+
   touch-action: auto;
 }
 
+
+/* ==========================================================================
+   Title bar
+   ========================================================================== */
+
 .window-titlebar {
   height: 43px;
+
   display: grid;
+  grid-template-columns: 100px minmax(0, 1fr) 100px;
   align-items: center;
+
   padding: 0 10px;
-  background: linear-gradient(#34353a, #292a2e);
-  color: #f1f1f1;
+
+  background: var(--window-titlebar-bg);
+  color: var(--window-titlebar-text);
+
+  border-bottom: 1px solid var(--border);
+
   user-select: none;
   touch-action: none;
+
   cursor: grab;
-  grid-template-columns: 100px minmax(0, 1fr) 100px;
 }
 
 .window-titlebar:active {
   cursor: grabbing;
 }
+
+
+/* ==========================================================================
+   Title bar contents
+   ========================================================================== */
 
 .window-titlebar__left {
   display: flex;
@@ -33,16 +61,28 @@
 
 .window-title {
   justify-self: center;
+
+  max-width: 100%;
+
+  overflow: hidden;
+
+  color: var(--window-titlebar-text);
+
   font-size: 0.82rem;
   font-weight: 600;
-  max-width: 100%;
-  overflow: hidden;
+
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
+
+/* ==========================================================================
+   Window controls
+   ========================================================================== */
+
 .window-controls {
   justify-self: end;
+
   display: flex;
   gap: 8px;
 }
@@ -50,13 +90,23 @@
 .window-controls button {
   width: 26px;
   height: 26px;
+
   display: grid;
   place-items: center;
+
+  flex-shrink: 0;
+
   border: none;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.09);
-  color: #eee;
-  flex-shrink: 0;
+
+  background: var(--surface-hover);
+  color: var(--window-titlebar-text);
+
+  font: inherit;
+}
+
+.window-controls button:hover {
+  background: var(--border);
 }
 
 .window-controls,
@@ -66,21 +116,50 @@
   cursor: default;
 }
 
+
+/* Close button intentionally remains Ubuntu-ish red */
+
+.window-controls .window-close {
+  background: #c74b35;
+  color: white;
+}
+
+.window-controls .window-close:hover {
+  background: #e15b42;
+}
+
+
+/* ==========================================================================
+   Window body
+   ========================================================================== */
+
+.window-body {
+  height: calc(100% - 43px);
+
+  min-width: 0;
+  min-height: 0;
+
+  overflow: hidden;
+
+  background: var(--window-bg);
+  color: var(--window-text);
+}
+
+
+/* ==========================================================================
+   Window state
+   ========================================================================== */
+
 .window.is-maximized {
   top: 42px !important;
   left: 100px !important;
   right: 14px !important;
   bottom: 14px !important;
+
   width: auto !important;
   height: auto !important;
-  border-radius: 10px;
-}
 
-.window-body {
-  height: calc(100% - 43px);
-  min-width: 0;
-  min-height: 0;
-  overflow: hidden;
+  border-radius: 10px;
 }
 
 .window.is-dragging .window-titlebar {
@@ -95,27 +174,29 @@
   display: none;
 }
 
-.window-controls .window-close {
-  background: #c74b35;
-  color: white;
-}
 
-.window-controls .window-close:hover {
-  background: #e15b42;
-}
+/* ==========================================================================
+   Resize handles
+   ========================================================================== */
 
 .resize-handle {
   position: absolute;
   z-index: 5;
+
   touch-action: none;
   user-select: none;
 }
+
+
+/* North / south */
 
 .resize-handle--n,
 .resize-handle--s {
   left: 12px;
   right: 12px;
+
   height: 6px;
+
   cursor: ns-resize;
 }
 
@@ -127,11 +208,16 @@
   bottom: 0;
 }
 
+
+/* East / west */
+
 .resize-handle--e,
 .resize-handle--w {
   top: 12px;
   bottom: 12px;
+
   width: 6px;
+
   cursor: ew-resize;
 }
 
@@ -143,50 +229,71 @@
   left: 0;
 }
 
+
+/* Corners */
+
 .resize-handle--ne,
 .resize-handle--nw,
 .resize-handle--se,
 .resize-handle--sw {
   width: 14px;
   height: 14px;
+
   z-index: 6;
 }
 
 .resize-handle--ne {
   top: 0;
   right: 0;
+
   cursor: nesw-resize;
 }
 
 .resize-handle--nw {
   top: 0;
   left: 0;
+
   cursor: nwse-resize;
 }
 
 .resize-handle--se {
-  bottom: 0;
   right: 0;
+  bottom: 0;
+
   cursor: nwse-resize;
 }
 
 .resize-handle--sw {
-  bottom: 0;
   left: 0;
+  bottom: 0;
+
   cursor: nesw-resize;
 }
 
+
+/* Visible resize grip */
+
 .resize-handle--se::after {
   content: "";
+
   position: absolute;
+
   right: 3px;
   bottom: 3px;
+
   width: 6px;
   height: 6px;
-  border-right: 2px solid #888;
-  border-bottom: 2px solid #888;
-  opacity: 0.65;
+
+  border-right: 2px solid var(--window-text);
+  border-bottom: 2px solid var(--window-text);
+
+  opacity: 0.35;
 }
+
+
+/* ==========================================================================
+   Drag / resize behaviour
+   ========================================================================== */
 
 .window.is-resizing,
 .window.is-dragging {

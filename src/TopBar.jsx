@@ -96,6 +96,8 @@ export default function TopBar({
     activeApp,
     windows,
     onRestoreWindow,
+    theme,
+    onToggleTheme,
 }) {
     const [now, setNow] = useState(new Date())
     const audioRef = useRef(null)
@@ -130,9 +132,6 @@ export default function TopBar({
             setRadioError(true)
         }
     }
-
-    // Dummy switch for now.
-    const [lightMode, setLightMode] = useState(false)
 
     useEffect(() => {
         const timer = window.setInterval(() => {
@@ -231,14 +230,21 @@ export default function TopBar({
 
                 <button
                     type="button"
-                    className={`topbar__control ${lightMode ? 'topbar__control--active' : ''
-                        }`}
-                    aria-pressed={lightMode}
-                    title="Toggle light mode"
-                    onClick={() => setLightMode(value => !value)}
+                    className="topbar__control"
+                    aria-label={
+                        theme === 'dark'
+                            ? 'Switch to light mode'
+                            : 'Switch to dark mode'
+                    }
+                    title={
+                        theme === 'dark'
+                            ? 'Switch to light mode'
+                            : 'Switch to dark mode'
+                    }
+                    onClick={onToggleTheme}
                 >
                     <span aria-hidden="true">
-                        {lightMode ? '☀' : '☾'}
+                        {theme === 'dark' ? '☀' : '☾'}
                     </span>
                 </button>
 

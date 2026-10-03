@@ -1,15 +1,51 @@
 import './Dock.css'
+import { EXTERNAL_LINKS } from './system/externalLinks.js'
 
 const iconPath = filename => `${import.meta.env.BASE_URL}icons/${filename}`
 
 const apps = [
-  { id: 'saskpoly', label: 'Saskatchewan Polytechnic', file: 'saskpoly.ico' },
-  { id: 'outlook', label: 'Outlook', file: 'outlook.svg' },
-  { id: 'teams', label: 'Teams', file: 'teams.svg' },
-  { id: 'brightspace', label: 'D2L — Brightspace', file: 'd2l.png' },
-  { id: 'onedrive', label: 'OneDrive', file: 'onedrive.svg' },
-  { id: 'sharepoint', label: 'SharePoint', file: 'sharepoint.svg' },
-  { id: 'github', label: 'GitHub', file: 'github.svg' },
+  {
+    id: 'saskpoly',
+    label: 'Saskatchewan Polytechnic',
+    file: 'saskpoly.ico',
+    href: EXTERNAL_LINKS.saskpoly,
+  },
+  {
+    id: 'outlook',
+    label: 'Outlook',
+    file: 'outlook.svg',
+    href: EXTERNAL_LINKS.outlook,
+  },
+  {
+    id: 'teams',
+    label: 'Teams',
+    file: 'teams.svg',
+    href: EXTERNAL_LINKS.teams,
+  },
+  {
+    id: 'brightspace',
+    label: 'Brightspace',
+    file: 'd2l.png',
+    href: EXTERNAL_LINKS.brightspace,
+  },
+  {
+    id: 'onedrive',
+    label: 'OneDrive',
+    file: 'onedrive.svg',
+    href: EXTERNAL_LINKS.onedrive,
+  },
+  {
+    id: 'sharepoint',
+    label: 'SharePoint',
+    file: 'sharepoint.svg',
+    href: EXTERNAL_LINKS.sharepoint,
+  },
+  {
+    id: 'github',
+    label: 'GitHub',
+    file: 'github.svg',
+    href: EXTERNAL_LINKS.github,
+  },
 ]
 
 function AppIcon({ id, file }) {
@@ -40,18 +76,42 @@ export default function Dock({
   return (
     <nav className="dock dock--logos" aria-label="Applications">
       <div className="dock__apps">
-        {apps.map(app => (
-          <button
-            key={app.id}
-            type="button"
-            className="dock-item"
-            aria-label={`${app.label} — coming soon`}
-            disabled
-          >
-            <AppIcon id={app.id} file={app.file} />
-            <span className="dock-tooltip">{app.label} — coming soon</span>
-          </button>
-        ))}
+        {apps.map(app => {
+          if (!app.href) {
+            return (
+              <button
+                key={app.id}
+                type="button"
+                className="dock-item"
+                aria-label={`${app.label} — coming soon`}
+                disabled
+              >
+                <AppIcon id={app.id} file={app.file} />
+
+                <span className="dock-tooltip">
+                  {app.label} — coming soon
+                </span>
+              </button>
+            )
+          }
+
+          return (
+            <a
+              key={app.id}
+              className="dock-item"
+              href={app.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`Open ${app.label}`}
+            >
+              <AppIcon id={app.id} file={app.file} />
+
+              <span className="dock-tooltip">
+                {app.label}
+              </span>
+            </a>
+          )
+        })}
 
         <button
           type="button"
@@ -68,11 +128,11 @@ export default function Dock({
         <button
           type="button"
           className={appClass('notes', notesOpen)}
-          aria-label={activeApp === 'notes' ? 'Emacs — active' : 'Open notes'}
+          aria-label={activeApp === 'notes' ? 'Emacs: active' : 'Open notes'}
           onClick={onOpenNotes}
         >
           <AppIcon id="emacs" file="emacs.svg" />
-          <span className="dock-tooltip">Emacs — Notes</span>
+          <span className="dock-tooltip">Emacs: Notes</span>
         </button>
       </div>
 

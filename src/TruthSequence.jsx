@@ -8,7 +8,7 @@ import {
 
 import { useSystemError } from './SystemError.jsx'
 import './TruthSequence.css'
-import { RESET_TRANSIENT_UI } from './system/systemEvents.js'
+import { RESET_TRANSIENT_UI } from './system/events.js'
 
 const TruthSequenceContext = createContext(null)
 

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
 
 import DesktopWindow from './DesktopWindow.jsx'
@@ -10,9 +10,22 @@ import CoursesApp from './CoursesApp.jsx'
 import TrashApp from './TrashApp.jsx'
 import MessApp from './MessApp.jsx'
 import DesktopShortcut from './DesktopShortcut.jsx'
+import { THEMES, loadTheme, saveTheme } from './system/theme.js'
 
 export default function App() {
   const [selectedDesktopItem, setSelectedDesktopItem] = useState(null)
+
+  const [theme, setTheme] = useState(loadTheme)
+  useEffect(() => {
+    saveTheme(theme)
+  }, [theme])
+  function toggleTheme() {
+    setTheme(current =>
+      current === THEMES.DARK
+        ? THEMES.LIGHT
+        : THEMES.DARK
+    )
+  }
 
   const [desktop, setDesktop] = useState({
     windows: {
@@ -90,6 +103,7 @@ export default function App() {
   return (
     <main
       className="desktop"
+      data-theme={theme}
       onPointerDown={event => {
         if (event.target === event.currentTarget) {
           setSelectedDesktopItem(null)
@@ -100,6 +114,8 @@ export default function App() {
         activeApp={activeApp}
         windows={windows}
         onRestoreWindow={openApp}
+        theme={theme}
+        onToggleTheme={toggleTheme}
       />
 
       <Dock

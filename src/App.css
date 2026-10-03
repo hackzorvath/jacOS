@@ -1,4 +1,80 @@
+/* ==========================================================================
+   jacOS theme
+   ========================================================================== */
+
+.desktop {
+  --desktop-text: #f2f2f2;
+
+  --topbar-bg: rgba(23, 23, 26, 0.97);
+  --topbar-text: #f2f2f2;
+
+  --window-bg: #2d2d30;
+  --window-text: #f2f2f2;
+
+  --window-titlebar-bg: #343438;
+  --window-titlebar-text: #f2f2f2;
+
+  --surface-bg: #252528;
+  --surface-hover: rgba(255, 255, 255, 0.12);
+
+  --border: rgba(255, 255, 255, 0.14);
+
+  --shadow: rgba(0, 0, 0, 0.4);
+
+  /* Dock */
+  --dock-bg: rgba(27, 27, 31, 0.88);
+  --dock-border: rgba(255, 255, 255, 0.08);
+
+  --dock-item-hover: rgba(255, 255, 255, 0.08);
+  --dock-item-active: rgba(255, 255, 255, 0.18);
+
+  --dock-separator: rgba(255, 255, 255, 0.22);
+
+  --dock-tooltip-bg: rgba(25, 25, 28, 0.96);
+  --dock-tooltip-text: #ffffff;
+
+  --dock-focus: #ffffff;
+}
+
+
+/* Light mode */
+
+.desktop[data-theme="light"] {
+  --desktop-text: #202020;
+
+  --topbar-bg: rgba(245, 245, 245, 0.97);
+  --topbar-text: #222222;
+
+  --window-bg: #f7f7f7;
+  --window-text: #222222;
+
+  --window-titlebar-bg: #e8e8e8;
+  --window-titlebar-text: #202020;
+
+  --surface-bg: #ffffff;
+  --surface-hover: rgba(0, 0, 0, 0.08);
+
+  --border: rgba(0, 0, 0, 0.18);
+  --shadow: rgba(0, 0, 0, 0.28);
+
+  /* Dock */
+  --dock-bg: rgba(244, 244, 247, 0.90);
+  --dock-border: rgba(0, 0, 0, 0.14);
+
+  --dock-item-hover: rgba(0, 0, 0, 0.07);
+  --dock-item-active: rgba(0, 0, 0, 0.11);
+
+  --dock-separator: rgba(0, 0, 0, 0.18);
+
+  --dock-tooltip-bg: rgba(248, 248, 250, 0.98);
+  --dock-tooltip-text: #202020;
+
+  --dock-focus: #202020;
+}
+
 /* Desktop shell: wallpaper, top bar, shortcuts, tray and initial window placement. */
+
+
 
 .desktop {
   position: relative;

@@ -4,7 +4,7 @@ import UbuntuFetch from './UbuntuFetch.jsx'
 import { SYSTEM_PROMPT } from './system/identity.js'
 
 const WELCOME = [
-  'Welcome to Jack’s instructor workstation.',
+  'Authenticated as spt-faculty. Welcome to jacOS.',
   'Type help for available commands.',
 ].join('\n')
 

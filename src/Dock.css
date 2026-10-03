@@ -1,22 +1,50 @@
-/* Dock layout, local logo assets, tooltips and running/focused indicators. */
+/* ==========================================================================
+   jacOS Dock
+   Layout, local logo assets, tooltips and running/focused indicators.
+   ========================================================================== */
+
+
+/* ==========================================================================
+   Dock shell
+   ========================================================================== */
 
 .dock {
   position: absolute;
   z-index: 90;
+
   left: 12px;
   top: 46px;
   bottom: 14px;
+
   width: 74px;
+
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
   padding: 12px 8px;
-  background: rgba(27, 27, 31, 0.88);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+
+  background: var(--dock-bg);
+  border: 1px solid var(--dock-border);
   border-radius: 16px;
+
   backdrop-filter: blur(14px);
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.34);
+
+  box-shadow:
+    0 10px 28px var(--shadow);
+
+  box-sizing: border-box;
+
+  transition:
+    background 150ms ease,
+    border-color 150ms ease,
+    box-shadow 150ms ease;
 }
+
+
+/* ==========================================================================
+   Dock groups
+   ========================================================================== */
 
 .dock__apps {
   display: flex;
@@ -30,52 +58,48 @@
   gap: 18px;
 }
 
+
+/* ==========================================================================
+   Dock items
+   Works for both buttons and external-link anchors
+   ========================================================================== */
+
 .dock-item {
+  position: relative;
+
   width: 56px;
   height: 56px;
+
   display: grid;
   place-items: center;
-  text-decoration: none;
-  position: relative;
-  opacity: 1;
-  filter: none;
-}
 
-.dock-tooltip {
-  position: absolute;
-  left: 77px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: max-content;
-  display: none;
-  padding: 8px 10px;
-  border-radius: 7px;
-  background: rgba(25, 25, 28, 0.96);
-  color: white;
-  font-size: 0.75rem;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
-  z-index: 300;
-}
+  flex-shrink: 0;
 
-.dock-item:hover .dock-tooltip {
-  display: block;
-}
-
-.dock-separator {
-  width: 48px;
-  height: 1px;
-  background: rgba(255, 255, 255, 0.22);
-}
-
-button.dock-item {
+  margin: 0;
   padding: 0;
+
   border: 0;
+  border-radius: 12px;
+
   background: transparent;
   color: inherit;
+
+  text-decoration: none;
+
+  opacity: 1;
+  filter: none;
+
   font: inherit;
+
   cursor: pointer;
-  flex-shrink: 0;
+
+  transition:
+    background 100ms ease,
+    box-shadow 100ms ease;
 }
+
+
+/* Disabled fake apps */
 
 button.dock-item:disabled {
   opacity: 1;
@@ -83,69 +107,161 @@ button.dock-item:disabled {
   cursor: default;
 }
 
-button.dock-item:focus-visible {
-  outline: 2px solid white;
-  outline-offset: 3px;
-  border-radius: 12px;
+
+/* Hover for clickable buttons AND external links */
+
+.dock-item:not(:disabled):hover {
+  background: var(--dock-item-hover);
 }
 
+
+/* Keyboard focus */
+
+.dock-item:focus-visible {
+  outline: 2px solid var(--dock-focus);
+  outline-offset: 3px;
+}
+
+
+/* Active jacOS application */
+
+.dock-item--focused {
+  background: var(--dock-item-active);
+
+  box-shadow:
+    inset 0 0 0 1px var(--dock-border);
+}
+
+
+/* ==========================================================================
+   Running application indicator
+   ========================================================================== */
+
+.dock-item--running::before {
+  content: "";
+
+  position: absolute;
+
+  left: -12px;
+  top: 50%;
+
+  transform: translateY(-50%);
+
+  width: 4px;
+  height: 28px;
+
+  border-radius: 0 4px 4px 0;
+
+  background: var(--sp-orange);
+}
+
+
+/* ==========================================================================
+   Tooltip
+   ========================================================================== */
+
+.dock-tooltip {
+  position: absolute;
+  z-index: 300;
+
+  left: 77px;
+  top: 50%;
+
+  transform: translateY(-50%);
+
+  width: max-content;
+
+  display: none;
+
+  padding: 8px 10px;
+
+  border: 1px solid var(--dock-border);
+  border-radius: 7px;
+
+  background: var(--dock-tooltip-bg);
+  color: var(--dock-tooltip-text);
+
+  font-size: 0.75rem;
+  white-space: nowrap;
+
+  box-shadow:
+    0 4px 14px var(--shadow);
+}
+
+.dock-item:hover .dock-tooltip,
 .dock-item:focus-visible .dock-tooltip {
   display: block;
 }
 
-.dock-item--running::before {
-  content: "";
-  position: absolute;
-  left: -12px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 4px;
-  height: 28px;
-  border-radius: 0 4px 4px 0;
-  background: var(--sp-orange);
+
+/* ==========================================================================
+   Separator
+   ========================================================================== */
+
+.dock-separator {
+  width: 48px;
+  height: 1px;
+
+  background: var(--dock-separator);
 }
 
-button.dock-item--focused {
-  border-radius: 12px;
-  background: rgb(255 255 255 / 18%);
-  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 16%);
-}
 
-button.dock-item:not(:disabled):not(.dock-item--focused):hover {
-  background: rgba(255, 255, 255, 0.08);
-  border-radius: 12px;
-}
+/* ==========================================================================
+   App icons
+   ========================================================================== */
 
 .dock--logos .dock-app-icon {
-  display: grid;
-  place-items: center;
-  flex-shrink: 0;
-  box-sizing: border-box;
   width: 48px;
   height: 48px;
+
+  display: grid;
+  place-items: center;
+
+  flex-shrink: 0;
+
+  box-sizing: border-box;
+
   padding: 4px;
+
   border: 0;
   border-radius: 11px;
+
   background: transparent;
+
   overflow: hidden;
+
   pointer-events: none;
 }
 
 .dock--logos .dock-app-icon img {
   display: block;
+
   width: 100%;
   height: 100%;
   max-width: 100%;
+
   object-fit: contain;
+
   opacity: 1;
   filter: none;
+
   user-select: none;
 }
+
+
+/* ==========================================================================
+   Individual app treatments
+   These intentionally do NOT follow the jacOS theme.
+   They belong to the application's branding.
+   ========================================================================== */
 
 .dock--logos .dock-app-icon--saskpoly {
   padding: 0;
   border-radius: 8px;
 }
+
+
+/* D2L logo is intentionally white-on-black */
 
 .dock--logos .dock-app-icon--brightspace {
   padding: 0;
@@ -156,29 +272,51 @@ button.dock-item:not(:disabled):not(.dock-item--focused):hover {
   transform: scale(1.45);
 }
 
+
+/* GitHub mark needs a white tile */
+
 .dock--logos .dock-app-icon--github {
   padding: 7px;
   background: #fff;
 }
 
+
 .dock--logos .dock-app-icon--emacs {
   padding: 1px;
 }
+
 
 .dock--logos .dock-app-icon--trash {
   padding: 0;
 }
 
+
+/* Terminal keeps its own dark application identity */
+
 .dock--logos .dock-app-icon--terminal {
   padding: 0;
+
   border: 2px solid #f38a00;
-  background: linear-gradient(#343434, #161616);
+
+  background:
+    linear-gradient(#343434, #161616);
+
   color: #fff;
-  font-family: Consolas, Menlo, monospace;
+
+  font-family:
+    Consolas,
+    Menlo,
+    monospace;
+
   font-size: 26px;
   font-weight: 700;
   line-height: 1;
 }
+
+
+/* ==========================================================================
+   Compact vertical layout
+   ========================================================================== */
 
 @media (max-height: 850px) {
   .dock__apps {
@@ -201,5 +339,4 @@ button.dock-item:not(:disabled):not(.dock-item--focused):hover {
   .dock--logos .dock-app-icon--terminal {
     font-size: 21px;
   }
-
 }
