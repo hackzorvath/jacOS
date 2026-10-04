@@ -291,3 +291,31 @@
         width: 22px;
     }
 }
+
+.topbar__radio {
+  gap: 5px;
+  padding: 0 7px;
+}
+
+.topbar__radio svg {
+  display: block;
+  flex-shrink: 0;
+}
+
+.topbar__radio-state {
+  min-width: 9px;
+
+  display: inline-block;
+
+  font-family:
+    "SFMono-Regular",
+    Consolas,
+    monospace;
+
+  font-size: 0.62rem;
+  line-height: 1;
+
+  text-align: center;
+
+  opacity: 0.85;
+}

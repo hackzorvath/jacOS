@@ -11,6 +11,12 @@ import TrashApp from './TrashApp.jsx'
 import MessApp from './MessApp.jsx'
 import DesktopShortcut from './DesktopShortcut.jsx'
 import { THEMES, loadTheme, saveTheme } from './system/theme.js'
+import WallpaperHost from './wallpapers/WallpaperHost.jsx'
+import {
+  DEFAULT_STATIC_WALLPAPER_ID,
+  DEFAULT_DYNAMIC_WALLPAPER_ID,
+} from './system/wallpapers.js'
+import WallpaperGallery from './wallpapers/WallpaperGallery.jsx'
 
 export default function App() {
   const [selectedDesktopItem, setSelectedDesktopItem] = useState(null)
@@ -27,6 +33,42 @@ export default function App() {
     )
   }
 
+  const [dynamicWallpapersEnabled, setDynamicWallpapersEnabled] =
+    useState(() => {
+      return localStorage.getItem('jacOS-dynamic-wallpapers') === 'true'
+    })
+
+  const [dynamicWallpaperId, setDynamicWallpaperId] =
+    useState(() => {
+      return (
+        localStorage.getItem('jacOS-dynamic-wallpaper') ??
+        DEFAULT_DYNAMIC_WALLPAPER_ID
+      )
+    })
+
+  const wallpaperId =
+    dynamicWallpapersEnabled
+      ? dynamicWallpaperId
+      : DEFAULT_STATIC_WALLPAPER_ID
+
+  useEffect(() => {
+    localStorage.setItem(
+      'jacOS-dynamic-wallpapers',
+      String(dynamicWallpapersEnabled),
+    )
+  }, [dynamicWallpapersEnabled])
+
+  useEffect(() => {
+    localStorage.setItem(
+      'jacOS-dynamic-wallpaper',
+      dynamicWallpaperId,
+    )
+  }, [dynamicWallpaperId])
+
+  useEffect(() => {
+    localStorage.setItem('jacOS-wallpaper', wallpaperId)
+  }, [wallpaperId])
+
   const [desktop, setDesktop] = useState({
     windows: {
       notes: 'open',
@@ -34,6 +76,7 @@ export default function App() {
       courses: 'closed',
       mess: 'closed',
       trash: 'closed',
+      backgrounds: 'closed',
     },
     order: ['notes', 'terminal'],
   })
@@ -84,6 +127,10 @@ export default function App() {
     }))
   }
 
+  function openBackgrounds() {
+    openApp('backgrounds')
+  }
+
   function openNotes() {
     openApp('notes')
   }
@@ -110,12 +157,16 @@ export default function App() {
         }
       }}
     >
+
+      <WallpaperHost wallpaperId={wallpaperId} />
+
       <TopBar
         activeApp={activeApp}
         windows={windows}
         onRestoreWindow={openApp}
         theme={theme}
         onToggleTheme={toggleTheme}
+        onOpenBackgrounds={openBackgrounds}
       />
 
       <Dock
@@ -147,6 +198,27 @@ export default function App() {
         onOpen={() => openApp('mess')}
         position={{ top: 158, right: 12 }}
       />
+
+      <DesktopWindow
+        windowId="backgrounds"
+        title="Backgrounds — Appearance"
+        className="backgrounds-window"
+        hidden={windows.backgrounds !== 'open'}
+        onMinimize={() => hideApp('backgrounds', 'minimized')}
+        onClose={() => hideApp('backgrounds', 'closed')}
+        onFocus={() => focusApp('backgrounds')}
+        zIndex={getZIndex('backgrounds')}
+      >
+        <WallpaperGallery
+          wallpaperId={wallpaperId}
+          dynamicWallpapersEnabled={dynamicWallpapersEnabled}
+          onSetMode={mode =>
+            setDynamicWallpapersEnabled(mode === 'dynamic')
+          }
+          dynamicWallpaperId={dynamicWallpaperId}
+          onSelectWallpaper={setDynamicWallpaperId}
+        />
+      </DesktopWindow>
 
       <DesktopWindow
         windowId="notes"

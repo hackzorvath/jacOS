@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-labelledby="title desc">
+  <title id="title">Pandoc-style document converter icon</title>
+  <desc id="desc">Two simplified document sheets marked P and D with an arrow between them.</desc>
+
+  <!-- Transparent background -->
+
+  <!-- Left document -->
+  <path d="M14 22c0-4.4 3.6-8 8-8h35l13 13v61c0 4.4-3.6 8-8 8H22c-4.4 0-8-3.6-8-8V22z"
+        fill="#6554C0"/>
+  <path d="M57 14v13h13" fill="#8F7EE7"/>
+
+  <!-- Right document -->
+  <path d="M58 40c0-4.4 3.6-8 8-8h35l13 13v61c0 4.4-3.6 8-8 8H66c-4.4 0-8-3.6-8-8V40z"
+        fill="#2684FF"/>
+  <path d="M101 32v13h13" fill="#6AAEFF"/>
+
+  <!-- P -->
+  <path d="M29 36h14.5c10.7 0 17.5 5.8 17.5 15.2 0 9.7-7.4 15.7-18.4 15.7H38V80h-9V36zm9 8v15h4.8c5.7 0 9.2-2.8 9.2-7.5 0-4.8-3.4-7.5-9.1-7.5H38z"
+        fill="#fff"/>
+
+  <!-- Arrow -->
+  <path d="M48 78h22v-8l15 12-15 12v-8H48z" fill="#fff" opacity=".96"/>
+
+  <!-- D -->
+  <path d="M76 56h13.5C103.6 56 112 64.2 112 78s-8.4 22-22.5 22H76V56zm9 8v28h4.1c8.7 0 13.9-5 13.9-14s-5.2-14-13.9-14H85z"
+        fill="#fff"/>
+</svg>

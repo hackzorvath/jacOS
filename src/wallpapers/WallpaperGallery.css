@@ -1,0 +1,436 @@
+.wallpaper-gallery {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+
+    padding: 20px 24px 22px;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    background: var(--window-bg);
+    color: var(--window-text);
+}
+
+
+/* Header */
+
+.wallpaper-gallery__header {
+    margin-bottom: 14px;
+}
+
+.wallpaper-gallery__header h1 {
+    margin: 0;
+
+    font-size: 1.05rem;
+    font-weight: 650;
+}
+
+.wallpaper-gallery__header p {
+    margin: 3px 0 0;
+
+    font-size: 0.72rem;
+
+    opacity: 0.55;
+}
+
+
+/* Tabs */
+
+.wallpaper-gallery__tabs {
+    display: inline-flex;
+
+    margin-bottom: 18px;
+    padding: 3px;
+
+    border: 1px solid var(--border);
+    border-radius: 9px;
+
+    background: var(--surface-bg);
+}
+
+.wallpaper-gallery__tab {
+    min-width: 88px;
+
+    padding: 6px 14px;
+
+    border: 0;
+    border-radius: 6px;
+
+    background: transparent;
+    color: inherit;
+
+    font: inherit;
+    font-size: 0.75rem;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    opacity: 0.6;
+}
+
+.wallpaper-gallery__tab:hover {
+    opacity: 0.9;
+
+    background: var(--surface-hover);
+}
+
+.wallpaper-gallery__tab--active {
+    background: var(--surface-hover);
+
+    box-shadow:
+        0 1px 3px rgba(0, 0, 0, 0.22);
+
+    opacity: 1;
+}
+
+
+/* Hero */
+
+.wallpaper-gallery__hero,
+.wallpaper-gallery__choices {
+    width: 100%;
+    max-width: 640px;
+
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.wallpaper-gallery__preview {
+    position: relative;
+
+    width: 100%;
+    aspect-ratio: 16 / 9;
+
+    overflow: hidden;
+
+    border: 1px solid var(--border);
+    border-radius: 10px;
+
+    background: #000;
+
+    box-shadow:
+        0 4px 14px rgba(0, 0, 0, 0.2);
+}
+
+.wallpaper-gallery__preview>*:not(.wallpaper-gallery__preview-glass) {
+    position: absolute;
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+}
+
+.wallpaper-gallery__preview canvas {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.wallpaper-gallery__preview-glass {
+    position: absolute;
+    inset: 0;
+
+    z-index: 10;
+
+    pointer-events: none;
+
+    border-radius: inherit;
+
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+
+/* Current wallpaper */
+
+.wallpaper-gallery__current-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 16px;
+
+    padding: 9px 2px 0;
+}
+
+.wallpaper-gallery__current-info h2 {
+    margin: 0;
+
+    font-size: 0.87rem;
+    font-weight: 650;
+}
+
+.wallpaper-gallery__current-info p {
+    margin: 2px 0 0;
+
+    font-size: 0.68rem;
+
+    opacity: 0.5;
+}
+
+.wallpaper-gallery__current-label {
+    padding: 3px 8px;
+
+    border-radius: 999px;
+
+    background: var(--surface-hover);
+
+    font-size: 0.58rem;
+    font-weight: 700;
+
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+
+    opacity: 0.72;
+}
+
+
+/* Choices */
+
+.wallpaper-gallery__choices {
+    padding-top: 14px;
+
+    border-top: 1px solid var(--border);
+}
+
+.wallpaper-gallery__choices-heading {
+    margin: 0 0 10px 2px;
+
+    font-size: 0.7rem;
+    font-weight: 650;
+
+    opacity: 0.65;
+}
+
+
+/* Horizontal carousel */
+
+.wallpaper-gallery__strip {
+    display: flex;
+
+    gap: 12px;
+
+    padding:
+        3px 3px 10px;
+
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    scroll-snap-type: x proximity;
+
+    scrollbar-width: thin;
+}
+
+
+/* Cards */
+
+.wallpaper-card {
+    flex: 0 0 135px;
+
+    padding: 0;
+
+    border: 0;
+
+    background: transparent;
+    color: inherit;
+
+    font: inherit;
+    text-align: left;
+
+    cursor: pointer;
+
+    scroll-snap-align: start;
+}
+
+.wallpaper-card__preview {
+    position: relative;
+
+    width: 100%;
+    aspect-ratio: 16 / 10;
+
+    overflow: hidden;
+
+    box-sizing: border-box;
+
+    border: 2px solid transparent;
+    border-radius: 8px;
+
+    background: #000;
+
+    transition:
+        border-color 120ms ease,
+        transform 120ms ease;
+}
+
+.wallpaper-card:hover .wallpaper-card__preview {
+    transform: translateY(-2px);
+}
+
+.wallpaper-card--selected .wallpaper-card__preview {
+    border-color: var(--sp-orange);
+}
+
+.wallpaper-card__preview>* {
+    width: 100%;
+    height: 100%;
+}
+
+.wallpaper-card__selected-mark {
+    position: absolute;
+
+    right: 5px;
+    bottom: 5px;
+
+    width: 18px;
+    height: 18px;
+
+    display: grid;
+    place-items: center;
+
+    border: 2px solid white;
+    border-radius: 50%;
+
+    background: var(--sp-orange);
+    color: white;
+
+    font-size: 0.58rem;
+    font-weight: 800;
+}
+
+.wallpaper-card__name {
+    display: block;
+
+    padding: 6px 2px 0;
+
+    font-size: 0.68rem;
+    font-weight: 600;
+
+    opacity: 0.75;
+}
+
+.wallpaper-card--selected .wallpaper-card__name {
+    opacity: 1;
+}
+
+/* ==========================================================================
+   Card focus
+   ========================================================================== */
+
+.wallpaper-card:focus-visible {
+    outline: none;
+}
+
+.wallpaper-card:focus-visible .wallpaper-card__preview {
+    outline: 2px solid var(--sp-orange);
+    outline-offset: 3px;
+}
+
+
+/* ==========================================================================
+   Void thumbnail
+   ========================================================================== */
+
+.wallpaper-card__preview--void {
+    background: #000;
+}
+
+
+/* ==========================================================================
+   Matrix thumbnail
+   ========================================================================== */
+
+.wallpaper-card__preview--matrix {
+    display: grid;
+    place-items: center;
+
+    background:
+        radial-gradient(circle at center,
+            rgba(0, 255, 80, 0.14),
+            transparent 68%),
+        #000;
+}
+
+.matrix-card-preview {
+    position: absolute;
+    inset: 0;
+
+    display: flex;
+    justify-content: space-evenly;
+
+    overflow: hidden;
+
+    color: #00dd55;
+
+    font-family:
+        "SFMono-Regular",
+        Consolas,
+        monospace;
+
+    font-size: 0.65rem;
+    line-height: 1.55;
+
+    opacity: 0.82;
+}
+
+.matrix-card-preview span {
+    writing-mode: vertical-rl;
+}
+
+
+/* ==========================================================================
+   Small layouts
+   ========================================================================== */
+
+@media (max-width: 700px) {
+    .wallpaper-gallery {
+        padding: 16px;
+    }
+
+    .wallpaper-gallery__hero,
+    .wallpaper-gallery__choices {
+        width: 100%;
+    }
+
+    .wallpaper-card {
+        flex-basis: 125px;
+    }
+}
+
+/* ==========================================================================
+   Starfield thumbnail
+   ========================================================================== */
+
+.wallpaper-card__preview--starfield {
+    background:
+        radial-gradient(
+            circle at 15% 24%,
+            white 0 1px,
+            transparent 1.5px
+        ),
+        radial-gradient(
+            circle at 72% 18%,
+            white 0 1px,
+            transparent 1.5px
+        ),
+        radial-gradient(
+            circle at 38% 70%,
+            white 0 1.2px,
+            transparent 1.7px
+        ),
+        radial-gradient(
+            circle at 86% 66%,
+            white 0 0.8px,
+            transparent 1.3px
+        ),
+        radial-gradient(
+            circle at 57% 43%,
+            rgba(255, 255, 255, 0.85) 0 1px,
+            transparent 1.6px
+        ),
+        radial-gradient(
+            circle at center,
+            #151a32 0,
+            #070912 45%,
+            #020308 100%
+        );
+}

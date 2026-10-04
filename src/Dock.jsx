@@ -41,6 +41,12 @@ const apps = [
     href: EXTERNAL_LINKS.sharepoint,
   },
   {
+    id: 'pandoc',
+    label: 'Pandoc',
+    file: 'pandoc-jacos.svg',
+    href: EXTERNAL_LINKS.pandoc,
+  },
+  {
     id: 'github',
     label: 'GitHub',
     file: 'github.svg',

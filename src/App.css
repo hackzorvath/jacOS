@@ -81,10 +81,7 @@
   width: 100vw;
   height: 100vh;
   overflow: hidden;
-  background: linear-gradient(rgba(0, 0, 0, 0.04), rgba(0, 0, 0, 0.04)), url("./assets/jammy_jellyfish.png");
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
+  background: #000;
 }
 
 .terminal-mini-icon {
@@ -239,4 +236,17 @@
   width: 520px;
   height: 370px;
   max-width: calc(100% - 120px);
+}
+
+
+
+.backgrounds-window {
+    left: calc(50% - 40px);
+    top: 44px;
+
+    width: 690px;
+    height: 805px;
+
+    max-width: calc(100% - 130px);
+    max-height: calc(100% - 70px);
 }

@@ -7,6 +7,7 @@ export const EXTERNAL_LINKS = {
   onedrive: 'https://m365.cloud.microsoft/launch/onedrive',
   sharepoint: 'https://m365.cloud.microsoft/launch/sharepoint',
 
+  pandoc: 'https://pandoc.org/app/',
   github: 'https://github.com/',
 
   brightspace: 'https://online.saskpolytech.ca/d2l/home',

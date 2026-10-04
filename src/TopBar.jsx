@@ -8,6 +8,7 @@ const APP_LABELS = {
     courses: 'Courses',
     mess: 'mess',
     trash: 'Trash',
+    backgrounds: 'Appearance',
 }
 
 const WINDOW_LABELS = {
@@ -16,6 +17,123 @@ const WINDOW_LABELS = {
     courses: 'Courses',
     mess: 'mess — Files',
     trash: 'Trash',
+    backgrounds: 'Backgrounds - Appearance',
+}
+
+function BackgroundIcon() {
+    return (
+        <svg
+            viewBox="0 0 24 24"
+            width="15"
+            height="15"
+            aria-hidden="true"
+        >
+            <rect
+                x="3"
+                y="4"
+                width="18"
+                height="16"
+                rx="2"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+            />
+
+            <circle
+                cx="8"
+                cy="9"
+                r="1.5"
+                fill="currentColor"
+            />
+
+            <path
+                d="M4 17l5-5 4 4 2-2 5 5"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+            />
+        </svg>
+    )
+}
+
+function RadioIcon() {
+    return (
+        <svg
+            viewBox="0 0 24 24"
+            width="17"
+            height="17"
+            aria-hidden="true"
+        >
+            {/* antenna */}
+            <path
+                d="M7 5l10-3"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.7"
+                strokeLinecap="round"
+            />
+
+            {/* radio body */}
+            <rect
+                x="3"
+                y="6"
+                width="18"
+                height="14"
+                rx="2"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.7"
+            />
+
+            {/* tuner display */}
+            <rect
+                x="6"
+                y="9"
+                width="7"
+                height="3"
+                rx="0.7"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.4"
+            />
+
+            {/* tuner marker */}
+            <path
+                d="M9 9v3"
+                stroke="currentColor"
+                strokeWidth="1.2"
+            />
+
+            {/* speaker */}
+            <circle
+                cx="9.5"
+                cy="16"
+                r="2.3"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.4"
+            />
+
+            <circle
+                cx="17"
+                cy="10"
+                r="1.3"
+                fill="currentColor"
+            />
+
+            {/* tuning knob */}
+            <circle
+                cx="17"
+                cy="16"
+                r="1.4"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.4"
+            />
+        </svg>
+    )
 }
 
 function NetworkIcon() {
@@ -98,6 +216,7 @@ export default function TopBar({
     onRestoreWindow,
     theme,
     onToggleTheme,
+    onOpenBackgrounds,
 }) {
     const [now, setNow] = useState(new Date())
     const audioRef = useRef(null)
@@ -209,9 +328,23 @@ export default function TopBar({
 
                 <button
                     type="button"
-                    className={`topbar__control ${radioOn ? 'topbar__control--active' : ''
+                    className="topbar__control"
+                    title="Change background"
+                    aria-label="Change background"
+                    onClick={onOpenBackgrounds}
+                >
+                    <BackgroundIcon />
+                </button>
+                <button
+                    type="button"
+                    className={`topbar__control topbar__radio ${radioOn ? 'topbar__control--active' : ''
                         }`}
                     aria-pressed={radioOn}
+                    aria-label={
+                        radioOn
+                            ? 'Turn off jacOS Radio'
+                            : 'Turn on jacOS Radio'
+                    }
                     title={
                         radioOn
                             ? 'Turn off jacOS Radio'
@@ -219,12 +352,13 @@ export default function TopBar({
                     }
                     onClick={toggleRadio}
                 >
-                    <span aria-hidden="true">
-                        {radioLoading ? '…' : radioOn ? '■' : '▶'}
-                    </span>
+                    <RadioIcon />
 
-                    <span className="topbar__control-label">
-                        {radioError ? 'Radio unavailable' : 'Radio'}
+                    <span
+                        className="topbar__radio-state"
+                        aria-hidden="true"
+                    >
+                        {radioLoading ? '…' : radioOn ? '⏸' : '▶'}
                     </span>
                 </button>
 
