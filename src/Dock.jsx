@@ -4,6 +4,12 @@ import { EXTERNAL_LINKS } from './system/externalLinks.js'
 const iconPath = filename => `${import.meta.env.BASE_URL}icons/${filename}`
 
 const apps = [
+    {
+    id: 'sift',
+    label: 'Sift: GB Jam 14',
+    file: 'gbjam14.png',
+    href: EXTERNAL_LINKS.sift,
+  },
   {
     id: 'saskpoly',
     label: 'Saskatchewan Polytechnic',

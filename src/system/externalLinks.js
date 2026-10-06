@@ -9,6 +9,7 @@ export const EXTERNAL_LINKS = {
 
   pandoc: 'https://pandoc.org/app/',
   github: 'https://github.com/',
+  sift: 'https://gus3000.itch.io/gb-jam-14-entry',
 
   brightspace: 'https://online.saskpolytech.ca/d2l/home',
 }
