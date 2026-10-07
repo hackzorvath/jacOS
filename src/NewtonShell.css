@@ -290,9 +290,9 @@
 
     image-rendering: pixelated;
 }
-/* 
+
 @media (display-mode: standalone) {
     .newton-dock {
         padding-bottom: env(safe-area-inset-bottom);
     }
-} */
+}
