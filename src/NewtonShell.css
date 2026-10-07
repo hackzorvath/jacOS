@@ -141,6 +141,8 @@
     background: transparent;
     color: inherit;
 
+    text-decoration: none;
+
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -295,4 +297,8 @@
 
 .newton-shell--standalone .newton-screen {
     padding-top: 48px;
+}
+
+.newton-shell--standalone .newton-dock {
+    padding-bottom: 24px;
 }
