@@ -1,4 +1,6 @@
 import { useRef, useState } from 'react'
+import '@fontsource/silkscreen/400.css'
+import '@fontsource/silkscreen/700.css'
 import './NewtonShell.css'
 
 import NewtonLauncher from './NewtonLauncher.jsx'
