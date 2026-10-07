@@ -4,15 +4,18 @@
 
 .newton-shell {
     width: 100%;
+    height: 100dvh;
     min-height: 100dvh;
 
     margin: 0;
     padding: 0;
 
+    overflow: hidden;
+
     background: #cfd2bc;
     color: #111;
 
-    font-family: "Silkscreen", Geneva, monospace;
+    font-family: "Pixelify Sans", Geneva, monospace;
 
     -webkit-tap-highlight-color: transparent;
     user-select: none;
@@ -20,12 +23,12 @@
 
 
 .newton-screen {
-    min-height: 100dvh;
+    width: 100%;
+    height: 100%;
+    min-height: 0;
 
     display: flex;
     flex-direction: column;
-
-    box-sizing: border-box;
 
     background: #cfd2bc;
 
@@ -40,19 +43,22 @@
    ========================================================= */
 
 .newton-header {
+    flex: 0 0 auto;
+
     display: grid;
     grid-template-columns: 1fr auto 1fr;
     align-items: center;
 
     gap: 8px;
 
-    padding: 9px 11px 8px;
+    padding:
+        10px 12px 9px;
 
     border-bottom: 2px solid #111;
 
     background: rgba(255, 255, 255, 0.12);
 
-    font-size: 0.72rem;
+    font-size: 0.95rem;
     font-weight: 700;
     line-height: 1;
 }
@@ -73,7 +79,8 @@
    ========================================================= */
 
 .newton-content {
-    flex: 1;
+    flex: 1 1 auto;
+
     min-height: 0;
 
     overflow: hidden;
@@ -85,28 +92,46 @@
    ========================================================= */
 
 .newton-launcher {
+    width: 100%;
     height: 100%;
+
+    padding: 12px 10px 10px;
 
     box-sizing: border-box;
 
-    overflow-y: auto;
-
-    padding: 30px 12px 24px;
+    overflow: hidden;
 }
 
 
 .newton-app-grid {
+    width: 100%;
+    height: 100%;
+
     display: grid;
 
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
 
-    column-gap: 8px;
-    row-gap: 30px;
+    grid-template-rows:
+        repeat(3, minmax(0, 1fr));
+
+    align-items: center;
+    justify-items: stretch;
+
+    column-gap: 6px;
+    row-gap: 0;
 }
 
 
+/* =========================================================
+   Individual app
+   ========================================================= */
+
 .newton-app-icon {
     appearance: none;
+
+    width: 100%;
+    height: 100%;
 
     border: 0;
     padding: 0;
@@ -117,6 +142,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
 
     gap: 8px;
 
@@ -132,9 +158,10 @@
 
 
 .newton-app-label {
-    min-height: 1em;
+    font-size: clamp(0.82rem,
+            3.5vw,
+            1rem);
 
-    font-size: 0.72rem;
     font-weight: 700;
     line-height: 1;
 
@@ -147,51 +174,44 @@
    ========================================================= */
 
 .newton-app-tile {
-    width: 92px;
-    height: 92px;
+    width: clamp(88px,
+            25vw,
+            104px);
+
+    aspect-ratio: 1;
 
     display: grid;
     place-items: center;
 
     border: 0;
-    border-radius: 0;
 
     background: transparent;
-    box-shadow: none;
 }
 
 
 /* =========================================================
-   Launcher icons
+   Newton launcher artwork
    ========================================================= */
 
 .newton-launcher-icon {
-    width: 82px;
-    height: 82px;
+    width: 92%;
+    height: 92%;
 
     object-fit: contain;
-
-    /*
-      These assets were made specifically for Newton now,
-      so don't beat them up with grayscale filters anymore.
-    */
-    filter: none;
 
     image-rendering: pixelated;
 }
 
 
 /* =========================================================
-   Sift — dark mode reveals the true jetpack
+   Sift refuses assimilation
    ========================================================= */
 
 .newton-launcher-icon--colour {
-    width: 88px;
-    height: 88px;
+    width: 98%;
+    height: 98%;
 
     object-fit: contain;
-
-    filter: none;
 
     image-rendering: pixelated;
 }
@@ -202,10 +222,10 @@
    ========================================================= */
 
 .newton-dock {
+    flex: 0 0 auto;
+
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-
-    flex-shrink: 0;
 
     border-top: 2px solid #111;
 
@@ -216,7 +236,7 @@
 .newton-dock-button {
     appearance: none;
 
-    min-height: 82px;
+    min-height: 92px;
 
     border: 0;
     border-right: 2px solid #111;
@@ -234,7 +254,7 @@
     gap: 5px;
 
     font: inherit;
-    font-size: 0.70rem;
+    font-size: 0.9rem;
     font-weight: 700;
     line-height: 1;
 
@@ -263,8 +283,8 @@
 
 
 .newton-dock-icon {
-    width: 52px;
-    height: 52px;
+    width: 58px;
+    height: 58px;
 
     object-fit: contain;
 
@@ -273,12 +293,31 @@
 
 
 /* =========================================================
-   Installed iPhone web app
+   Installed iPhone Web App
    ========================================================= */
 
 @media (display-mode: standalone) {
-    .newton-screen {
-        padding-top: max(env(safe-area-inset-top), 44px);
-        padding-bottom: env(safe-area-inset-bottom);
+
+    /*
+      Let the header itself own the iOS status-bar safe area.
+      That keeps jacOS out from underneath the clock /
+      Dynamic Island without creating a separate blank strip.
+    */
+
+    .newton-header {
+        padding-top:
+            calc(env(safe-area-inset-top) + 10px);
+    }
+
+
+    /*
+      Same principle at the bottom:
+      the dock extends into the safe area instead of the
+      entire Newton screen growing an empty footer.
+    */
+
+    .newton-dock {
+        padding-bottom:
+            env(safe-area-inset-bottom);
     }
 }
