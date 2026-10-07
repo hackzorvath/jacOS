@@ -12,6 +12,7 @@ import siftJetpack from './assets/newton/sift-jetpack.png'
 
 import { EXTERNAL_LINKS } from './system/externalLinks.js'
 
+
 export const APPS = [
     {
         id: 'outlook',
@@ -38,6 +39,20 @@ export const APPS = [
     },
 
     {
+        id: 'notes',
+        name: 'Notes',
+        type: 'internal',
+        iconSrc: notesIcon,
+    },
+
+    {
+        id: 'terminal',
+        name: 'Terminal',
+        type: 'internal',
+        iconSrc: terminalIcon,
+    },
+
+    {
         id: 'github',
         name: 'GitHub',
         type: 'link',
@@ -46,11 +61,26 @@ export const APPS = [
     },
 
     {
+        id: 'courses',
+        name: 'Courses',
+        type: 'internal',
+        iconSrc: coursesIcon,
+    },
+
+    {
+        id: 'trash',
+        name: 'Trash',
+        type: 'internal',
+        iconSrc: trashIcon,
+    },
+
+    {
         id: 'sift',
         name: 'Sift',
         type: 'link',
         href: EXTERNAL_LINKS.sift,
+
         lightIconSrc: newtonJetpack,
         darkIconSrc: siftJetpack,
-    }, 
+    },
 ]
