@@ -15,6 +15,10 @@ import homeIcon from './assets/newton/home.png'
 import nightIcon from './assets/newton/dark.png'
 
 export default function NewtonShell() {
+    const standalone =
+        window.navigator.standalone === true ||
+        window.matchMedia('(display-mode: standalone)').matches
+
     const [activeApp, setActiveApp] = useState(null)
     const [darkMode, setDarkMode] = useState(false)
 
@@ -93,7 +97,14 @@ export default function NewtonShell() {
 
 
     return (
-        <main className="newton-shell">
+        <main
+            className={
+                `newton-shell ${standalone
+                    ? 'newton-shell--standalone'
+                    : ''
+                }`
+            }
+        >
             <div className="newton-screen">
 
                 <header className="newton-header">
