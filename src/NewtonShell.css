@@ -290,34 +290,9 @@
 
     image-rendering: pixelated;
 }
-
-
-/* =========================================================
-   Installed iPhone Web App
-   ========================================================= */
-
+/* 
 @media (display-mode: standalone) {
-
-    /*
-      Let the header itself own the iOS status-bar safe area.
-      That keeps jacOS out from underneath the clock /
-      Dynamic Island without creating a separate blank strip.
-    */
-
-    .newton-header {
-        padding-top:
-            calc(env(safe-area-inset-top) + 10px);
-    }
-
-
-    /*
-      Same principle at the bottom:
-      the dock extends into the safe area instead of the
-      entire Newton screen growing an empty footer.
-    */
-
     .newton-dock {
-        padding-bottom:
-            env(safe-area-inset-bottom);
+        padding-bottom: env(safe-area-inset-bottom);
     }
-}
+} */
