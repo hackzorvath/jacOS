@@ -1,0 +1,99 @@
+.ubuntu-fetch {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 20px 28px;
+
+  margin: 0 0 20px;
+  max-width: 100%;
+}
+
+.ubuntu-fetch .ubuntu-fetch__logo {
+  flex: 0 1 auto;
+  min-width: 0;
+  max-width: 100%;
+
+  margin: 0;
+  padding: 0;
+  overflow-x: auto;
+
+  background: transparent;
+  border: 0;
+
+  font-family: inherit;
+  font-size: 0.72rem;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: 0;
+  font-variant-ligatures: none;
+
+  white-space: pre;
+  overflow-wrap: normal;
+  word-break: normal;
+
+  user-select: none;
+}
+
+.ubuntu-fetch__purple {
+  color: #732181;
+}
+
+.ubuntu-fetch__grey {
+  color: #a7a8aa;
+}
+
+.ubuntu-fetch__info {
+  flex: 1 1 230px;
+  min-width: 0;
+
+  color: #ece8ed;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.ubuntu-fetch .ubuntu-fetch__user {
+  margin: 0;
+
+  color: #a7a8aa;
+  font-weight: 700;
+}
+
+.ubuntu-fetch .ubuntu-fetch__divider {
+  margin: 0 0 8px;
+  color: #a7a8aa;
+}
+
+.ubuntu-fetch__details {
+  margin: 0;
+}
+
+.ubuntu-fetch__details > div {
+  display: flex;
+  align-items: baseline;
+  gap: 1ch;
+}
+
+.ubuntu-fetch__details dt {
+  flex-shrink: 0;
+  color: #a7a8aa;
+  font-weight: 700;
+}
+
+.ubuntu-fetch__details dd {
+  min-width: 0;
+  margin: 0;
+}
+
+.ubuntu-fetch__palette {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+
+  margin-top: 14px;
+}
+
+.ubuntu-fetch__palette > span {
+  display: block;
+  width: 28px;
+  height: 22px;
+}

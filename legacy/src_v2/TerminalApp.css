@@ -1,0 +1,66 @@
+/* Terminal scrolling, history, command prompt and input. */
+
+.terminal-prompt {
+  display: flex;
+  align-items: center;
+  margin-top: 8px;
+}
+
+.prompt-user {
+  color: #54d5a0;
+  font-weight: bold;
+}
+
+.prompt-path {
+  margin-right: 7px;
+  color: #a8b7ff;
+}
+
+.terminal-prompt input {
+  flex: 1;
+  border: 0;
+  outline: none;
+  background: transparent;
+  color: white;
+  font: inherit;
+  caret-color: white;
+}
+
+.terminal-app {
+  height: 100%;
+  padding: 18px;
+  overflow: auto;
+  background: var(--terminal-bg);
+  color: var(--terminal-text);
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
+.terminal-entry {
+  margin-bottom: 14px;
+}
+
+.terminal-command {
+  overflow-wrap: anywhere;
+}
+
+.terminal-output {
+  margin: 4px 0 0;
+  font: inherit;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.terminal-app .terminal-prompt {
+  margin-top: 8px;
+}
+
+.terminal-app .terminal-prompt label {
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.terminal-app .terminal-prompt input {
+  min-width: 0;
+}

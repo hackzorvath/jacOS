@@ -292,7 +292,11 @@
 }
 
 @media (display-mode: standalone) {
+    .newton-header {
+        padding-top: 58px;
+    }
+
     .newton-dock {
-        padding-bottom: env(safe-area-inset-bottom);
+        padding-bottom: env(safe-area-inset-bottom, 0px);
     }
 }

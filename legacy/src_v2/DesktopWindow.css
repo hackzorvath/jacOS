@@ -1,0 +1,194 @@
+/* Shared window frame, title bar, controls and resize handles. */
+
+.window {
+  position: absolute;
+  overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.9);
+  border-radius: var(--window-radius);
+  box-shadow: var(--shadow);
+  touch-action: auto;
+}
+
+.window-titlebar {
+  height: 43px;
+  display: grid;
+  align-items: center;
+  padding: 0 10px;
+  background: linear-gradient(#34353a, #292a2e);
+  color: #f1f1f1;
+  user-select: none;
+  touch-action: none;
+  cursor: grab;
+  grid-template-columns: 100px minmax(0, 1fr) 100px;
+}
+
+.window-titlebar:active {
+  cursor: grabbing;
+}
+
+.window-titlebar__left {
+  display: flex;
+  align-items: center;
+}
+
+.window-title {
+  justify-self: center;
+  font-size: 0.82rem;
+  font-weight: 600;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.window-controls {
+  justify-self: end;
+  display: flex;
+  gap: 8px;
+}
+
+.window-controls button {
+  width: 26px;
+  height: 26px;
+  display: grid;
+  place-items: center;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.09);
+  color: #eee;
+  flex-shrink: 0;
+}
+
+.window-controls,
+.window-controls *,
+.window-titlebar__left,
+.window-titlebar__left * {
+  cursor: default;
+}
+
+.window.is-maximized {
+  top: 42px !important;
+  left: 100px !important;
+  right: 14px !important;
+  bottom: 14px !important;
+  width: auto !important;
+  height: auto !important;
+  border-radius: 10px;
+}
+
+.window-body {
+  height: calc(100% - 43px);
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.window.is-dragging .window-titlebar {
+  cursor: grabbing;
+}
+
+.window.is-maximized .window-titlebar {
+  cursor: default;
+}
+
+.window[hidden] {
+  display: none;
+}
+
+.window-controls .window-close {
+  background: #c74b35;
+  color: white;
+}
+
+.window-controls .window-close:hover {
+  background: #e15b42;
+}
+
+.resize-handle {
+  position: absolute;
+  z-index: 5;
+  touch-action: none;
+  user-select: none;
+}
+
+.resize-handle--n,
+.resize-handle--s {
+  left: 12px;
+  right: 12px;
+  height: 6px;
+  cursor: ns-resize;
+}
+
+.resize-handle--n {
+  top: 0;
+}
+
+.resize-handle--s {
+  bottom: 0;
+}
+
+.resize-handle--e,
+.resize-handle--w {
+  top: 12px;
+  bottom: 12px;
+  width: 6px;
+  cursor: ew-resize;
+}
+
+.resize-handle--e {
+  right: 0;
+}
+
+.resize-handle--w {
+  left: 0;
+}
+
+.resize-handle--ne,
+.resize-handle--nw,
+.resize-handle--se,
+.resize-handle--sw {
+  width: 14px;
+  height: 14px;
+  z-index: 6;
+}
+
+.resize-handle--ne {
+  top: 0;
+  right: 0;
+  cursor: nesw-resize;
+}
+
+.resize-handle--nw {
+  top: 0;
+  left: 0;
+  cursor: nwse-resize;
+}
+
+.resize-handle--se {
+  bottom: 0;
+  right: 0;
+  cursor: nwse-resize;
+}
+
+.resize-handle--sw {
+  bottom: 0;
+  left: 0;
+  cursor: nesw-resize;
+}
+
+.resize-handle--se::after {
+  content: "";
+  position: absolute;
+  right: 3px;
+  bottom: 3px;
+  width: 6px;
+  height: 6px;
+  border-right: 2px solid #888;
+  border-bottom: 2px solid #888;
+  opacity: 0.65;
+}
+
+.window.is-resizing,
+.window.is-dragging {
+  user-select: none;
+}
