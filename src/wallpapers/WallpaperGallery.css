@@ -402,35 +402,45 @@
 
 .wallpaper-card__preview--starfield {
     background:
-        radial-gradient(
-            circle at 15% 24%,
+        radial-gradient(circle at 15% 24%,
             white 0 1px,
-            transparent 1.5px
-        ),
-        radial-gradient(
-            circle at 72% 18%,
+            transparent 1.5px),
+        radial-gradient(circle at 72% 18%,
             white 0 1px,
-            transparent 1.5px
-        ),
-        radial-gradient(
-            circle at 38% 70%,
+            transparent 1.5px),
+        radial-gradient(circle at 38% 70%,
             white 0 1.2px,
-            transparent 1.7px
-        ),
-        radial-gradient(
-            circle at 86% 66%,
+            transparent 1.7px),
+        radial-gradient(circle at 86% 66%,
             white 0 0.8px,
-            transparent 1.3px
-        ),
-        radial-gradient(
-            circle at 57% 43%,
+            transparent 1.3px),
+        radial-gradient(circle at 57% 43%,
             rgba(255, 255, 255, 0.85) 0 1px,
-            transparent 1.6px
-        ),
-        radial-gradient(
-            circle at center,
+            transparent 1.6px),
+        radial-gradient(circle at center,
             #151a32 0,
             #070912 45%,
-            #020308 100%
-        );
+            #020308 100%);
+}
+
+.wallpaper-card__preview--chaos {
+    background:
+        linear-gradient(35deg, transparent 35%,
+            #ed4aaa 36% 58%, transparent 59%) 18% 30% / 42% 60% no-repeat,
+        linear-gradient(-25deg, transparent 30%,
+            #63e7a7 31% 63%, transparent 64%) 80% 65% / 46% 65% no-repeat,
+        linear-gradient(65deg, transparent 32%,
+            #9077ef 33% 60%, transparent 61%) 52% 22% / 40% 55% no-repeat,
+        #000;
+}
+
+.wallpaper-card__preview--gas {
+    background:
+        radial-gradient(ellipse at 32% 60%,
+            #ffe398 0%, #ee6221 12%,
+            #7d130b 28%, transparent 52%),
+        radial-gradient(ellipse at 75% 30%,
+            #e73d16 0%, #64100b 24%,
+            transparent 48%),
+        #080000;
 }

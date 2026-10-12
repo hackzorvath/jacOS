@@ -2,6 +2,8 @@ import JammyWallpaper from '../wallpapers/JammyWallpaper.jsx'
 import VoidWallpaper from '../wallpapers/VoidWallpaper.jsx'
 import MatrixWallpaper from '../wallpapers/MatrixWallpaper.jsx'
 import StarfieldWallpaper from '../wallpapers/StarfieldWallpaper.jsx'
+import ChaosWallpaper from '../wallpapers/ChaosWallpaper.jsx'
+import GasWallpaper from '../wallpapers/GasWallpaper.jsx'
 
 export const WALLPAPERS = {
     jammy: {
@@ -33,6 +35,20 @@ export const WALLPAPERS = {
         description: 'Please remain seated during transit.',
         type: 'dynamic',
         component: StarfieldWallpaper,
+    },
+    chaos: {
+        id: 'chaos',
+        name: 'Chaos',
+        description: 'Younger Jack was left unsupervised.',
+        type: 'dynamic',
+        component: ChaosWallpaper,
+    },
+    gas: {
+        id: 'gas',
+        name: 'Gas',
+        description: 'Gaseous phenomena. Questionable atmosphere.',
+        type: 'dynamic',
+        component: GasWallpaper,
     },
 }
 
