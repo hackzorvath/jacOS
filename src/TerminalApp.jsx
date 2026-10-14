@@ -15,6 +15,7 @@ const HELP = [
   'date          Show the current date and time',
   'echo <text>   Repeat your text',
   'notes         Open the notes editor',
+  'doom          Yes, it runs DOOM',
   'clear         Clear the terminal',
 ].join('\n')
 
@@ -108,6 +109,12 @@ export default function TerminalApp({
         onOpenNotes()
         output = 'Opened notes.txt in Emacs.'
         break
+
+      case "doom":
+        window.location.assign(
+          `${import.meta.env.BASE_URL}doom/index.html`
+        );
+        return;
 
       case 'clear':
         setEntries([])

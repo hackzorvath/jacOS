@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>DOOM - jacOS</title>
+
+    <link rel="stylesheet" href="https://v8.js-dos.com/latest/js-dos.css">
+    <script src="https://v8.js-dos.com/latest/js-dos.js"></script>
+
+    <style>
+        html,
+        body,
+        #dos {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            background: black;
+            overflow: hidden;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="dos"></div>
+
+    <script>
+        Dos(document.getElementById("dos"), {
+            url: "./doom.jsdos",
+            autoStart: true,
+            kiosk: true
+        });
+    </script>
+</body>
+
+</html>
