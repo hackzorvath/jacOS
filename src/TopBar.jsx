@@ -225,6 +225,11 @@ export default function TopBar({
     const [radioLoading, setRadioLoading] = useState(false)
     const [radioError, setRadioError] = useState(false)
 
+    const [volumeOpen, setVolumeOpen] = useState(false)
+    const [quixoticVolume, setQuixoticVolume] = useState(
+        (Math.E + Math.PI) / 2
+    )
+
     async function toggleRadio() {
         const audio = audioRef.current
 
@@ -241,16 +246,26 @@ export default function TopBar({
         setRadioError(false)
 
         try {
-            audio.volume = 0.35
             await audio.play()
         } catch (error) {
-            console.error('jacOS Radio failed:', error)
+            console.error('jacFM failed:', error)
 
             setRadioOn(false)
             setRadioLoading(false)
             setRadioError(true)
         }
     }
+
+    useEffect(() => {
+        const audio = audioRef.current
+        if (!audio) return
+
+        const ratio =
+            (quixoticVolume - Math.E) /
+            (Math.PI - Math.E)
+
+        audio.volume = 0.12 + ratio * 0.23
+    }, [quixoticVolume])
 
     useEffect(() => {
         const timer = window.setInterval(() => {
@@ -342,12 +357,12 @@ export default function TopBar({
                     aria-pressed={radioOn}
                     aria-label={
                         radioOn
-                            ? 'Turn off jacOS Radio'
-                            : 'Turn on jacOS Radio'
+                            ? 'Turn off jacFM'
+                            : 'Turn on jacFM'
                     }
                     title={
                         radioOn
-                            ? 'Turn off jacOS Radio'
+                            ? 'Turn off jacFM'
                             : 'Station selection is managed by your organization.'
                     }
                     onClick={toggleRadio}
@@ -397,14 +412,42 @@ export default function TopBar({
                     <NetworkIcon />
                 </button>
 
-                <button
-                    type="button"
-                    className="topbar__status"
-                    title="Sound"
-                    aria-label="Sound"
-                >
-                    <VolumeIcon />
-                </button>
+                <div className="topbar__volume">
+                    <button
+                        type="button"
+                        className="topbar__status"
+                        title="Quixotic Volume"
+                        aria-label="Adjust volume"
+                        aria-expanded={volumeOpen}
+                        onClick={() => setVolumeOpen(open => !open)}
+                    >
+                        <VolumeIcon />
+                    </button>
+
+                    {volumeOpen && (
+                        <div className="topbar__volume-popover">
+                            <small>irrantional volume; make it make sense</small>
+
+                            <input
+                                type="range"
+                                min={Math.E}
+                                max={Math.PI}
+                                step="any"
+                                value={quixoticVolume}
+                                aria-label="Quixotic Volume"
+                                onChange={event =>
+                                    setQuixoticVolume(Number(event.target.value))
+                                }
+                            />
+
+                            <div className="topbar__volume-labels">
+                                <span>e</span>
+                                <span>{quixoticVolume.toFixed(4)}</span>
+                                <span>π</span>
+                            </div>
+                        </div>
+                    )}
+                </div>
 
                 <button
                     type="button"

@@ -293,29 +293,81 @@
 }
 
 .topbar__radio {
-  gap: 5px;
-  padding: 0 7px;
+    gap: 5px;
+    padding: 0 7px;
 }
 
 .topbar__radio svg {
-  display: block;
-  flex-shrink: 0;
+    display: block;
+    flex-shrink: 0;
 }
 
 .topbar__radio-state {
-  min-width: 9px;
+    min-width: 9px;
 
-  display: inline-block;
+    display: inline-block;
 
-  font-family:
-    "SFMono-Regular",
-    Consolas,
-    monospace;
+    font-family:
+        "SFMono-Regular",
+        Consolas,
+        monospace;
 
-  font-size: 0.62rem;
-  line-height: 1;
+    font-size: 0.62rem;
+    line-height: 1;
 
-  text-align: center;
+    text-align: center;
 
-  opacity: 0.85;
+    opacity: 0.85;
+}
+
+/* Quixotic Volume */
+
+.topbar__volume {
+    position: relative;
+}
+
+.topbar__volume-popover {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+
+    width: 230px;
+    box-sizing: border-box;
+    padding: 16px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    background: var(--window-bg);
+    color: var(--window-text);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+
+    box-shadow: 0 6px 20px var(--shadow);
+    z-index: 200;
+}
+
+.topbar__volume-popover strong {
+    font-size: 0.85rem;
+}
+
+.topbar__volume-popover input {
+    width: 100%;
+    margin: 0;
+    accent-color: #e95420;
+    cursor: pointer;
+}
+
+.topbar__volume-labels {
+    display: flex;
+    justify-content: space-between;
+    font-family: monospace;
+    font-size: 0.9rem;
+}
+
+.topbar__volume-popover small {
+    opacity: 0.65;
+    font-size: 0.7rem;
+    line-height: 1.4;
 }
