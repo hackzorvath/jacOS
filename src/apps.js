@@ -5,6 +5,8 @@ import notesIcon from './assets/newton/notes.png'
 import terminalIcon from './assets/newton/terminal.png'
 import githubIcon from './assets/newton/github.png'
 import coursesIcon from './assets/newton/courses.png'
+import workIcon from './assets/newton/work.png'
+import gamesIcon from './assets/newton/games.png'
 import trashIcon from './assets/newton/trash.png'
 
 import newtonJetpack from './assets/newton/newton-jetpack.png'
@@ -12,8 +14,7 @@ import siftJetpack from './assets/newton/sift-jetpack.png'
 
 import { EXTERNAL_LINKS } from './system/externalLinks.js'
 
-
-export const APPS = [
+export const WORK_APPS = [
     {
         id: 'outlook',
         name: 'Outlook',
@@ -21,7 +22,6 @@ export const APPS = [
         href: EXTERNAL_LINKS.outlook,
         iconSrc: outlookIcon,
     },
-
     {
         id: 'teams',
         name: 'Teams',
@@ -29,13 +29,39 @@ export const APPS = [
         href: EXTERNAL_LINKS.teams,
         iconSrc: teamsIcon,
     },
-
     {
         id: 'brightspace',
         name: 'Brightspace',
         type: 'link',
         href: EXTERNAL_LINKS.brightspace,
         iconSrc: brightspaceIcon,
+    },
+]
+
+export const GAME_APPS = [
+    {
+        id: 'sift',
+        name: 'Sift',
+        type: 'link',
+        href: EXTERNAL_LINKS.sift,
+        lightIconSrc: newtonJetpack,
+        darkIconSrc: siftJetpack,
+    },
+]
+
+export const APPS = [
+    {
+        id: 'work',
+        name: 'Work',
+        type: 'internal',
+        iconSrc: workIcon,
+    },
+
+    {
+        id: 'games',
+        name: 'Games',
+        type: 'internal',
+        iconSrc: gamesIcon,
     },
 
     {
@@ -72,15 +98,5 @@ export const APPS = [
         name: 'Trash',
         type: 'internal',
         iconSrc: trashIcon,
-    },
-
-    {
-        id: 'sift',
-        name: 'Sift',
-        type: 'link',
-        href: EXTERNAL_LINKS.sift,
-
-        lightIconSrc: newtonJetpack,
-        darkIconSrc: siftJetpack,
     },
 ]

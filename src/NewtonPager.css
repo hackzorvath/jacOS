@@ -1,0 +1,112 @@
+.newton-pager {
+    height: 100%;
+    box-sizing: border-box;
+    padding: 16px 16px 18px;
+    overflow-y: auto;
+
+    background: #d8dbc7;
+    color: #111;
+    font-family: 'Pixelify Sans', sans-serif;
+}
+
+.newton-pager__header {
+    margin-bottom: 10px;
+}
+
+.newton-pager__header h1 {
+    margin: 0 0 4px;
+    font-size: 1.2rem;
+    line-height: 1.1;
+}
+
+.newton-pager__header p {
+    margin: 0;
+    font-size: 0.72rem;
+    opacity: 0.75;
+}
+
+.newton-pager__status {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+
+    margin-bottom: 10px;
+    padding: 8px 10px;
+
+    border: 2px solid #111;
+    background: #eceedd;
+
+    font-size: 0.72rem;
+}
+
+.newton-pager__banner {
+    margin-bottom: 14px;
+    padding: 8px 10px;
+
+    border: 2px solid #111;
+    background: #111;
+    color: #eceedd;
+
+    font-size: 0.78rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.newton-pager__list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.newton-pager__item {
+    padding: 10px;
+
+    border: 2px solid #111;
+    background: #eceedd;
+}
+
+.newton-pager__item-meta {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+
+    margin-bottom: 6px;
+
+    font-size: 0.68rem;
+    opacity: 0.8;
+}
+
+.newton-pager__item h2 {
+    margin: 0 0 6px;
+    font-size: 0.92rem;
+    line-height: 1.25;
+}
+
+.newton-pager__source {
+    margin: 0 0 8px;
+    font-size: 0.72rem;
+    opacity: 0.8;
+}
+
+.newton-pager__summary {
+    margin: 0 0 10px;
+    font-size: 0.78rem;
+    line-height: 1.45;
+}
+
+.newton-pager__button {
+    min-height: 34px;
+    padding: 6px 10px;
+
+    border: 2px solid #111;
+    background: #d8dbc7;
+    color: #111;
+
+    font: inherit;
+    font-size: 0.72rem;
+    cursor: pointer;
+}
+
+.newton-pager__button:active {
+    background: #c3c7b2;
+}

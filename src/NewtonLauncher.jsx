@@ -3,6 +3,8 @@ import { APPS } from './apps.js'
 export default function NewtonLauncher({
     onOpenApp,
     darkMode,
+    apps = APPS,
+    layout = 'home',
 }) {
     function getIcon(app) {
         if (app.id === 'sift') {
@@ -40,14 +42,13 @@ export default function NewtonLauncher({
 
     return (
         <section className="newton-launcher">
-            <div className="newton-app-grid">
-
-                {APPS.map(app => {
+            <div className={`newton-app-grid newton-app-grid--${layout}`}>
+                {apps.map(app => {
                     if (app.type === 'link') {
                         return (
                             <a
                                 key={app.id}
-                                className="newton-app-icon"
+                                className={`newton-app-icon newton-app-icon--${app.id}`}
                                 href={app.href}
                                 target="_blank"
                                 rel="noopener noreferrer"
@@ -61,7 +62,7 @@ export default function NewtonLauncher({
                         <button
                             key={app.id}
                             type="button"
-                            className="newton-app-icon"
+                            className={`newton-app-icon newton-app-icon--${app.id}`}
                             onClick={() => onOpenApp(app.id)}
                         >
                             {renderContents(app)}

@@ -4,15 +4,17 @@ import '@fontsource/pixelify-sans/700.css'
 import './NewtonShell.css'
 
 import NewtonLauncher from './NewtonLauncher.jsx'
-import NotesApp from './NotesApp.jsx'
+import { WORK_APPS, GAME_APPS } from './apps.js'
+import NewtonFieldNotes from './NewtonFieldNotes.jsx'
 import TerminalApp from './TerminalApp.jsx'
 import CoursesApp from './CoursesApp.jsx'
 import TrashApp from './TrashApp.jsx'
 import { DEFAULT_RADIO_STATION } from './system/radio.js'
+import NewtonPager from './NewtonPager.jsx'
 
 import radioIcon from './assets/newton/radio.png'
 import homeIcon from './assets/newton/home.png'
-import nightIcon from './assets/newton/dark.png'
+import pagerIcon from './assets/newton/pager.png'
 
 export default function NewtonShell() {
     const standalone =
@@ -68,8 +70,28 @@ export default function NewtonShell() {
 
     function renderApp() {
         switch (activeApp) {
+            case 'work':
+                return (
+                    <NewtonLauncher
+                        onOpenApp={setActiveApp}
+                        darkMode={darkMode}
+                        apps={WORK_APPS}
+                        layout="work"
+                    />
+                )
+
+            case 'games':
+                return (
+                    <NewtonLauncher
+                        onOpenApp={setActiveApp}
+                        darkMode={darkMode}
+                        apps={GAME_APPS}
+                        layout="folder"
+                    />
+                )
+
             case 'notes':
-                return <NotesApp />
+                return <NewtonFieldNotes />
 
             case 'terminal':
                 return (
@@ -84,6 +106,9 @@ export default function NewtonShell() {
 
             case 'trash':
                 return <TrashApp />
+
+            case 'pager':
+                return <NewtonPager />
 
             default:
                 return (
@@ -112,7 +137,13 @@ export default function NewtonShell() {
 
                     <span>{getFormattedDate()}</span>
 
-                    <span>{activeApp ?? 'Home'}</span>
+                    <span>{
+                        activeApp === 'notes'
+                            ? '/var/tmp'
+                            : activeApp === 'pager'
+                                ? '/var/spool/news'
+                                : (activeApp ?? 'Home')
+                    }</span>
                 </header>
 
 
@@ -122,51 +153,23 @@ export default function NewtonShell() {
 
 
                 <nav className="newton-dock">
-
-                    <audio
-                        ref={audioRef}
-                        src={DEFAULT_RADIO_STATION}
-                        preload="none"
-                        playsInline
-                        onPause={() => setRadioOn(false)}
-                        onError={() => {
-                            setRadioOn(false)
-                            setRadioError(true)
-                        }}
-                    />
-                    {/* Radio */}
-
                     <button
                         type="button"
-                        className="newton-dock-button"
-                        onClick={toggleRadio}
+                        className={`newton-dock-button ${activeApp === 'pager' ? 'is-active' : ''}`}
+                        aria-label="Pager"
+                        onClick={() => setActiveApp('pager')}
                     >
                         <img
-                            src={radioIcon}
+                            src={pagerIcon}
                             alt=""
                             className="newton-dock-icon"
                         />
-
-                        <span>
-                            {radioError
-                                ? 'Radio !'
-                                : radioOn
-                                    ? 'Radio ■'
-                                    : 'Radio'}
-                        </span>
                     </button>
-
-
-                    {/* Home */}
 
                     <button
                         type="button"
-                        className={
-                            `newton-dock-button ${activeApp === null
-                                ? 'is-active'
-                                : ''
-                            }`
-                        }
+                        className="newton-dock-button newton-dock-button--home"
+                        aria-label="Home"
                         onClick={() => setActiveApp(null)}
                     >
                         <img
@@ -174,31 +177,20 @@ export default function NewtonShell() {
                             alt=""
                             className="newton-dock-icon"
                         />
-
-                        <span>Home</span>
                     </button>
-
-
-                    {/* Fake "dark mode" */}
 
                     <button
                         type="button"
-                        className="newton-dock-button"
-                        onClick={() =>
-                            setDarkMode(current => !current)
-                        }
+                        className={`newton-dock-button ${radioOn ? 'is-active' : ''}`}
+                        aria-label="Radio"
+                        onClick={toggleRadio}
                     >
                         <img
-                            src={nightIcon}
+                            src={radioIcon}
                             alt=""
                             className="newton-dock-icon"
                         />
-
-                        <span>
-                            {darkMode ? 'Light' : 'Night'}
-                        </span>
                     </button>
-
                 </nav>
 
             </div>

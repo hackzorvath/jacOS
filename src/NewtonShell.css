@@ -285,10 +285,20 @@
         inset -3px -3px 0 rgba(0, 0, 0, 0.12);
 }
 
+/* Permanent physical Home button */
+
+.newton-dock-button--home .newton-dock-icon {
+    border-radius: 50%;
+
+    box-shadow:
+        0 0 0 5px #d9dcc8,
+        0 0 0 7px #111;
+}
+
 
 .newton-dock-icon {
-    width: 58px;
-    height: 58px;
+    width: 64px;
+    height: 64px;
 
     object-fit: contain;
 
@@ -301,4 +311,135 @@
 
 .newton-shell--standalone .newton-dock {
     padding-bottom: 24px;
+}
+
+.newton-app-grid--home {
+    grid-template-areas:
+        ".        .        trash"
+        "work     courses  games"
+        "notes    terminal github";
+}
+
+.newton-app-grid--home .newton-app-icon--trash {
+    grid-area: trash;
+}
+
+.newton-app-grid--home .newton-app-icon--work {
+    grid-area: work;
+}
+
+.newton-app-grid--home .newton-app-icon--courses {
+    grid-area: courses;
+}
+
+.newton-app-grid--home .newton-app-icon--games {
+    grid-area: games;
+}
+
+.newton-app-grid--home .newton-app-icon--notes {
+    grid-area: notes;
+}
+
+.newton-app-grid--home .newton-app-icon--terminal {
+    grid-area: terminal;
+}
+
+.newton-app-grid--home .newton-app-icon--github {
+    grid-area: github;
+}
+
+/* Trash is a small utility, not a primary app */
+
+.newton-app-grid--home .newton-app-icon--trash {
+    width: 76px;
+    height: max-content;
+
+    justify-self: end;
+    align-self: start;
+
+    gap: 3px;
+}
+
+.newton-app-icon--trash .newton-app-tile {
+    width: 58px;
+}
+
+.newton-app-icon--trash .newton-app-label {
+    font-size: 0.75rem;
+}
+
+/* Circular active Home button */
+
+.newton-dock-button.is-active {
+    background: transparent;
+    box-shadow: none;
+}
+
+/* Newton beveled dock divider */
+
+.newton-dock {
+    position: relative;
+    border-top: 0;
+    padding-top: 12px;
+}
+
+/* Raised plastic separator */
+
+.newton-dock::before {
+    content: "";
+    position: absolute;
+
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 10px;
+
+    border-top: 2px solid #30332b;
+    border-bottom: 2px solid #30332b;
+
+    background: linear-gradient(
+        to bottom,
+        #eff0df 0%,
+        #a5ab97 50%,
+        #d8dbc7 100%
+    );
+
+    pointer-events: none;
+}
+
+/* Recessed centre grip */
+
+.newton-dock::after {
+    content: "";
+    position: absolute;
+
+    top: 3px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    width: 80px;
+    height: 7px;
+
+    border: 1px solid #505449;
+    border-radius: 4px;
+
+    background: repeating-linear-gradient(
+        90deg,
+        #717868 0px,
+        #717868 2px,
+        #d9ddca 2px,
+        #d9ddca 6px
+    );
+
+    pointer-events: none;
+}
+
+/* Seamless Newton bottom bar */
+
+.newton-dock-button,
+.newton-dock-button.is-active {
+    border: none;
+    box-shadow: none;
+    outline: none;
+    background: transparent;
 }

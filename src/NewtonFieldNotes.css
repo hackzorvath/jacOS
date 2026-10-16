@@ -1,0 +1,208 @@
+/* /var/tmp: a pocket-sized Newton field notebook. */
+.field-notes {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  padding: 10px 11px 12px;
+  background: #cfd2bc;
+  color: #242721;
+  font-family: 'Pixelify Sans', Geneva, sans-serif;
+}
+
+.field-notes__toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex: 0 0 auto;
+  padding: 1px 2px 10px;
+}
+
+.field-notes__identity { min-width: 0; }
+.field-notes__identity h1 {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 700;
+  line-height: 1.1;
+}
+.field-notes__identity span {
+  display: block;
+  margin-top: 3px;
+  font-size: 0.7rem;
+  line-height: 1.15;
+}
+
+.field-notes__actions {
+  display: flex;
+  flex: 0 0 auto;
+  gap: 6px;
+}
+.field-notes__actions button,
+.field-notes__pager button {
+  appearance: none;
+  border: 2px solid #42483b;
+  border-radius: 3px;
+  background: #e6e7d5;
+  color: #242721;
+  font-family: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.field-notes__actions button {
+  min-height: 38px;
+  padding: 6px 9px;
+  font-size: 0.83rem;
+  box-shadow: inset 2px 2px rgba(255, 255, 255, 0.65);
+}
+.field-notes button:disabled { opacity: 0.35; cursor: default; }
+.field-notes button:not(:disabled):active { background: #b8bca8; }
+.field-notes button:focus-visible,
+.field-notes__textarea:focus-visible {
+  outline: 2px solid #875132;
+  outline-offset: 2px;
+}
+
+.field-notes__notebook {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: hidden;
+  background: #f7f2df;
+  border: 2px solid #4e5148;
+  border-radius: 3px;
+  box-shadow: 3px 4px 0 rgba(52, 57, 44, 0.24);
+}
+
+.field-notes__paper {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* Notebook margin in pencil-red, just to the right of the binding. */
+.field-notes__paper::after {
+  content: '';
+  position: absolute;
+  pointer-events: none;
+  z-index: 1;
+  left: 59px;
+  top: 0;
+  bottom: 0;
+  border-left: 1px solid rgba(184, 102, 99, 0.48);
+}
+
+.field-notes__textarea {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  resize: none;
+  overflow-y: auto;
+  margin: 0;
+  padding: 10px 13px 20px 71px;
+  border: 0;
+  border-radius: 0;
+  outline: none;
+  background-color: #f7f2df;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent 29px,
+    rgba(109, 151, 170, 0.4) 29px,
+    rgba(109, 151, 170, 0.4) 30px
+  );
+  background-size: 100% 30px;
+  background-position: 0 10px;
+  background-attachment: local;
+  color: #2c3838;
+  font-family: 'Chalkboard SE', 'Comic Sans MS', 'Trebuchet MS', sans-serif;
+  font-size: 17px; /* Prevent iOS Safari's automatic input zoom. */
+  font-weight: 400;
+  line-height: 30px;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+  -webkit-user-select: text;
+  user-select: text;
+  -webkit-appearance: none;
+}
+
+/* Wire loops sit over the left edge of the paper. */
+.field-notes__coil {
+  position: absolute;
+  z-index: 2;
+  top: 13px;
+  bottom: 62px;
+  left: -8px;
+  width: 42px;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-around;
+}
+.field-notes__coil span {
+  display: block;
+  box-sizing: border-box;
+  width: 34px;
+  height: 12px;
+  border: 3px solid #70766e;
+  border-top-color: #a6aba3;
+  border-bottom-color: #444b45;
+  border-radius: 50%;
+  background: transparent;
+  box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.12);
+}
+
+.field-notes__pagebar {
+  flex: 0 0 51px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  gap: 5px;
+  padding: 0 8px;
+  border-top: 2px solid #898d7f;
+  background: #eee9d4;
+  font-size: 0.73rem;
+  font-weight: 700;
+}
+.field-notes__status {
+  font-size: 0.68rem;
+  line-height: 1.15;
+}
+.field-notes__pager {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  white-space: nowrap;
+  font-size: 1rem;
+}
+.field-notes__pager button {
+  width: 32px;
+  height: 34px;
+  padding: 0;
+  font-size: 1.6rem;
+  line-height: 1;
+}
+.field-notes__local {
+  text-align: right;
+  white-space: nowrap;
+  font-size: 0.68rem;
+}
+
+@media (max-width: 360px) {
+  .field-notes__identity span { font-size: 0.63rem; }
+  .field-notes__actions button { padding-inline: 6px; }
+  .field-notes__pagebar { padding-inline: 5px; gap: 3px; }
+  .field-notes__pager { gap: 5px; }
+  .field-notes__local { font-size: 0.63rem; }
+}
