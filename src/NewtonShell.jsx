@@ -153,6 +153,21 @@ export default function NewtonShell() {
 
 
                 <nav className="newton-dock">
+                    <audio
+                        ref={audioRef}
+                        src={DEFAULT_RADIO_STATION}
+                        preload="none"
+                        playsInline
+                        onPause={() => setRadioOn(false)}
+                        onError={(event) => {
+                            console.error(
+                                'Radio audio error:',
+                                event.currentTarget.error
+                            )
+                            setRadioOn(false)
+                            setRadioError(true)
+                        }}
+                    />
                     <button
                         type="button"
                         className={`newton-dock-button ${activeApp === 'pager' ? 'is-active' : ''}`}
