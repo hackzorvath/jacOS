@@ -1,0 +1,7 @@
+/* Desktop frame dimensions; game appearance stays in its BSOD stylesheet. */
+.jparty-window {
+    top: 54px;
+    left: 120px;
+    width: min(1000px, calc(100vw - 145px));
+    height: min(740px, calc(100dvh - 90px));
+}

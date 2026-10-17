@@ -1,0 +1,89 @@
+diff --git a/src/DesktopShell.jsx b/src/DesktopShell.jsx
+--- a/src/DesktopShell.jsx
++++ b/src/DesktopShell.jsx
+@@ -10,6 +10,8 @@
+ import TrashApp from './TrashApp.jsx'
+ import MessApp from './MessApp.jsx'
+ import DesktopShortcut from './DesktopShortcut.jsx'
++import JeopardyDesktop from './games/jeopardy/JeopardyDesktop.jsx'
++import './games/jeopardy/JeopardyDesktop.window.css'
+ import { THEMES, loadTheme, saveTheme } from './system/theme.js'
+ import WallpaperHost from './wallpapers/WallpaperHost.jsx'
+ import {
+@@ -77,6 +79,7 @@
+             mess: 'closed',
+             trash: 'closed',
+             backgrounds: 'closed',
++            jparty: 'closed',
+         },
+         order: ['notes', 'terminal'],
+     })
+@@ -197,6 +200,16 @@
+                 onSelect={() => setSelectedDesktopItem('mess')}
+                 onOpen={() => openApp('mess')}
+                 position={{ top: 158, right: 12 }}
++            />
++
++            <DesktopShortcut
++                id="jparty"
++                label="jParty"
++                icon="🟦"
++                selected={selectedDesktopItem === 'jparty'}
++                onSelect={() => setSelectedDesktopItem('jparty')}
++                onOpen={() => openApp('jparty')}
++                position={{ top: 268, right: 12 }}
+             />
+ 
+             <DesktopWindow
+@@ -284,6 +297,20 @@
+             </DesktopWindow>
+ 
+             <DesktopWindow
++                windowId="jparty"
++                title="jParty"
++                icon={<span aria-hidden="true">🟦</span>}
++                className="jparty-window"
++                hidden={windows.jparty !== 'open'}
++                onMinimize={() => hideApp('jparty', 'minimized')}
++                onClose={() => hideApp('jparty', 'closed')}
++                onFocus={() => focusApp('jparty')}
++                zIndex={getZIndex('jparty')}
++            >
++                {windows.jparty !== 'closed' && <JeopardyDesktop />}
++            </DesktopWindow>
++
++            <DesktopWindow
+                 windowId="trash"
+                 title="Trash — Files"
+                 icon={<span aria-hidden="true">🗑</span>}
+diff --git a/src/TopBar.jsx b/src/TopBar.jsx
+--- a/src/TopBar.jsx
++++ b/src/TopBar.jsx
+@@ -9,6 +9,7 @@
+     mess: 'mess',
+     trash: 'Trash',
+     backgrounds: 'Appearance',
++    jparty: 'jParty',
+ }
+ 
+ const WINDOW_LABELS = {
+@@ -18,6 +19,7 @@
+     mess: 'mess — Files',
+     trash: 'Trash',
+     backgrounds: 'Backgrounds - Appearance',
++    jparty: 'jParty',
+ }
+ 
+ function BackgroundIcon() {
+diff --git a/src/games/jeopardy/JeopardyDesktop.window.css b/src/games/jeopardy/JeopardyDesktop.window.css
+new file mode 100644
+--- /dev/null
++++ b/src/games/jeopardy/JeopardyDesktop.window.css
+@@ -0,0 +1,7 @@
++/* Desktop frame dimensions; game appearance stays in its BSOD stylesheet. */
++.jparty-window {
++    top: 54px;
++    left: 120px;
++    width: min(1000px, calc(100vw - 145px));
++    height: min(740px, calc(100dvh - 90px));
++}

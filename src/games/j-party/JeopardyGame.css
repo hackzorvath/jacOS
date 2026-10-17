@@ -1,0 +1,108 @@
+/* Shared structure only. Each theme supplies its own scoped appearance. */
+.jeopardy-game {
+    container: jparty / inline-size;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    min-width: 0;
+    min-height: 0;
+    overflow: hidden;
+    background: var(--jp-screen, #cfd2bc);
+    color: var(--jp-ink, #252b23);
+    font-family: var(--jp-font, 'Courier New', monospace);
+    line-height: 1.35;
+    text-align: left;
+    isolation: isolate;
+    -webkit-text-size-adjust: 100%;
+}
+.jeopardy-game *, .jeopardy-game *::before, .jeopardy-game *::after { box-sizing: border-box; }
+.jeopardy-game button, .jeopardy-game input {
+    appearance: none;
+    -webkit-appearance: none;
+    margin: 0;
+    font: inherit;
+    color: inherit;
+    letter-spacing: inherit;
+}
+.jeopardy-game button {
+    min-height: 44px;
+    padding: 10px 13px;
+    border: 2px solid var(--jp-line);
+    border-radius: 2px;
+    background: var(--jp-button);
+    color: var(--jp-button-ink);
+    font-weight: 700;
+    cursor: pointer;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+}
+.jeopardy-game button:disabled { cursor: default; }
+.jeopardy-game button:disabled:not(.jeopardy-tile--used) { opacity: 0.4; }
+.jeopardy-game button:not(:disabled):active { background: var(--jp-ink); color: var(--jp-screen); }
+.jeopardy-game button:focus-visible, .jeopardy-game a:focus-visible, .jeopardy-game input:focus-visible {
+    outline: 2px dashed currentColor;
+    outline-offset: 3px;
+}
+.jeopardy-game h1, .jeopardy-game h2, .jeopardy-game h3, .jeopardy-game p { margin: 0; }
+.jeopardy-game [tabindex="-1"]:focus { outline: none; }
+.jeopardy-sr-only { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.jeopardy-money { font-variant-numeric: tabular-nums; white-space: nowrap; }
+.jeopardy-topbar { display: flex; flex: 0 0 auto; align-items: center; justify-content: space-between; gap: 12px; padding: 12px; }
+.jeopardy-brand { display: flex; align-items: center; gap: 8px; }
+.jeopardy-brand h1 { font-size: 1.5rem; line-height: 1; }
+.jeopardy-brand-mark { font-size: 1.7rem; line-height: 1; }
+.jeopardy-score { display: flex; flex-direction: column; align-items: flex-end; font-size: 0.65rem; line-height: 1.15; }
+.jeopardy-score strong { font-size: 1.2rem; }
+.jeopardy-main { display: flex; flex: 1 1 auto; min-height: 0; min-width: 0; padding: 12px; overflow-y: auto; overflow-x: hidden; overscroll-behavior-y: contain; }
+.jeopardy-board-screen { width: 100%; min-width: 0; margin: auto 0; }
+.jeopardy-board-heading { margin-bottom: 12px; }
+.jeopardy-board-heading h2 { font-size: 0.82rem; }
+.jeopardy-board-heading p { margin-top: 4px; font-size: 0.75rem; }
+.jeopardy-grid { display: grid; grid-template-columns: repeat(var(--jeopardy-columns), minmax(0, 1fr)); }
+.jeopardy-category, .jeopardy-game .jeopardy-tile { display: flex; min-width: 0; align-items: center; justify-content: center; text-align: center; }
+.jeopardy-category { overflow-wrap: anywhere; font-weight: 700; }
+.jeopardy-category-icon { display: block; width: 25px; height: 25px; }
+.jeopardy-category-icon svg { display: block; width: 100%; height: 100%; }
+.jeopardy-game .jeopardy-tile { min-height: 54px; padding: 4px 0; font-variant-numeric: tabular-nums; }
+.jeopardy-used-mark { display: block; font-size: 1.4rem; font-weight: 400; }
+.jeopardy-progress { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; margin-top: 12px; font-size: 0.67rem; }
+.jeopardy-board--mobile { display: none; }
+.jeopardy-page-controls { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 10px; font-size: 0.75rem; }
+.jeopardy-page-controls button { min-width: 44px; padding: 4px 12px; font-size: 1.4rem; }
+.jeopardy-message { display: flex; flex: 1; flex-direction: column; align-items: center; justify-content: center; gap: 16px; width: 100%; padding: 20px 8px; text-align: center; overflow-wrap: anywhere; }
+.jeopardy-message h2 { font-size: 1.35rem; }
+.jeopardy-message p { max-width: 48ch; font-size: 0.95rem; }
+.jeopardy-screen-label { font-size: 0.7rem; }
+.jeopardy-final-score { font-size: 2.5rem; font-weight: 700; }
+.jeopardy-clue-screen { display: flex; flex-direction: column; align-items: stretch; flex: 1; min-width: 0; width: 100%; margin: 0; }
+.jeopardy-transmission { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; padding: 9px 10px; font-size: 0.65rem; }
+.jeopardy-clue-meta { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px; padding: 12px; font-size: 0.85rem; }
+.jeopardy-clue-content { display: flex; flex-direction: column; flex: 1 0 auto; align-items: center; justify-content: center; gap: 18px; width: 100%; max-width: 760px; margin: 0 auto; padding: 24px 14px; text-align: center; overflow-wrap: anywhere; }
+.jeopardy-clue-content h3 { font-size: 1.7rem; }
+.jeopardy-question, .jeopardy-answer { font-size: clamp(1.1rem, 4.4cqw, 2rem); line-height: 1.45; }
+.jeopardy-answer { font-weight: 700; }
+.jeopardy-game .jeopardy-hint { font-size: 0.78rem; }
+.jeopardy-wager-label { font-size: 0.85rem; }
+.jeopardy-game .jeopardy-wager { width: 100%; max-width: 180px; padding: 12px; border: 2px solid var(--jp-line); border-radius: 0; background: var(--jp-paper); color: var(--jp-ink); text-align: center; font-size: 1.1rem; }
+.jeopardy-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; width: 100%; }
+.jeopardy-actions button { flex: 1 1 140px; max-width: 280px; }
+.jeopardy-actions button span { white-space: nowrap; }
+.jeopardy-footer { display: flex; flex: 0 0 auto; justify-content: space-between; align-items: center; gap: 10px; padding: 8px 12px; }
+.jeopardy-footer a { min-width: 0; color: inherit; font-size: 0.61rem; line-height: 1.4; text-decoration: underline; text-underline-offset: 2px; overflow-wrap: anywhere; }
+.jeopardy-game .jeopardy-footer button { flex: 0 0 auto; padding: 6px 10px; font-size: 0.72rem; }
+@container jparty (max-width: 650px) {
+    .jparty--bsod .jeopardy-board--desktop { display: none; }
+    .jparty--bsod .jeopardy-board--mobile { display: block; }
+}
+@container jparty (max-width: 360px) {
+    .jeopardy-topbar { padding: 10px 8px; }
+    .jeopardy-main { padding: 10px 6px; }
+    .jeopardy-footer { padding: 6px 8px; }
+    .jeopardy-actions { flex-direction: column; }
+    .jeopardy-actions button { flex: 0 0 auto; width: 100%; max-width: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .jeopardy-game * { scroll-behavior: auto; }
+}

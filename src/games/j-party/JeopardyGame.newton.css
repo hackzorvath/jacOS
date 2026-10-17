@@ -1,0 +1,32 @@
+/* Newton: one six-column, five-row calendar, even inside a phone-sized app. */
+.jparty--newton {
+    --jp-screen: #cfd2bc;
+    --jp-paper: #dce0ca;
+    --jp-ink: #252b23;
+    --jp-line: #424a3a;
+    --jp-button: #30392b;
+    --jp-button-ink: #e0e3ce;
+    --jp-font: 'Silkscreen', 'Pixelify Sans', 'Courier New', monospace;
+}
+.jparty--newton .jeopardy-topbar { padding: 8px 10px; border-bottom: 2px solid var(--jp-line); background: #c0c5ad; }
+.jparty--newton .jeopardy-main { padding: 8px; }
+.jparty--newton .jeopardy-score { gap: 3px; }
+.jparty--newton .jeopardy-score strong { font-family: 'Courier New', monospace; font-size: 1.3rem; }
+.jparty--newton .jeopardy-calendar { border: 2px solid var(--jp-line); background: var(--jp-line); box-shadow: 3px 3px 0 #a9af99; }
+.jparty--newton .jeopardy-grid { gap: 1px; }
+.jparty--newton .jeopardy-category { flex-direction: column; gap: 5px; min-height: 62px; padding: 7px 1px; background: #bcc3a9; font-family: 'Courier New', monospace; font-size: clamp(0.59rem, 2.6cqw, 0.8rem); letter-spacing: 0.015em; }
+.jparty--newton .jeopardy-tile { min-height: clamp(44px, 12cqw, 60px); border: 0; border-radius: 0; background: var(--jp-paper); color: var(--jp-ink); font-family: 'Courier New', monospace; font-size: clamp(0.88rem, 3.7cqw, 1.25rem); font-weight: 700; }
+.jparty--newton .jeopardy-tile--used { background: #b6bda4; color: #657158; }
+.jparty--newton .jeopardy-tile:focus-visible { outline: 2px dashed var(--jp-ink); outline-offset: -5px; }
+.jparty--newton .jeopardy-progress { margin-top: 8px; font-family: 'Courier New', monospace; font-size: 0.69rem; font-weight: 700; }
+.jparty--newton .jeopardy-clue-screen { border: 2px solid var(--jp-line); background: var(--jp-paper); }
+.jparty--newton .jeopardy-transmission { background: var(--jp-ink); color: var(--jp-paper); font-family: 'Courier New', monospace; font-weight: 700; }
+.jparty--newton .jeopardy-clue-meta { border-bottom: 1px solid var(--jp-line); background: #bcc3a9; font-family: 'Courier New', monospace; }
+.jparty--newton .jeopardy-clue-content { font-family: 'Courier New', monospace; }
+.jparty--newton .jeopardy-clue-content > button { width: 100%; max-width: 340px; }
+.jparty--newton .jeopardy-button--secondary { background: var(--jp-paper); color: var(--jp-ink); }
+.jparty--newton .jeopardy-footer { padding: 6px 10px; border-top: 1px solid var(--jp-line); background: #c0c5ad; font-family: 'Courier New', monospace; }
+.jparty--newton .jeopardy-message p { font-family: 'Courier New', monospace; }
+@media (hover: hover) {
+    .jparty--newton .jeopardy-tile:not(:disabled):hover { background: #aeb99b; }
+}

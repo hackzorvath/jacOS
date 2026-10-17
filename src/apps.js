@@ -9,8 +9,7 @@ import workIcon from './assets/newton/work.png'
 import gamesIcon from './assets/newton/games.png'
 import trashIcon from './assets/newton/trash.png'
 
-import newtonJetpack from './assets/newton/newton-jetpack.png'
-import siftJetpack from './assets/newton/sift-jetpack.png'
+import { getGamesFor } from './games/catalogue.js'
 
 import { EXTERNAL_LINKS } from './system/externalLinks.js'
 
@@ -38,16 +37,7 @@ export const WORK_APPS = [
     },
 ]
 
-export const GAME_APPS = [
-    {
-        id: 'sift',
-        name: 'Sift',
-        type: 'link',
-        href: EXTERNAL_LINKS.sift,
-        lightIconSrc: newtonJetpack,
-        darkIconSrc: siftJetpack,
-    },
-]
+export const GAME_APPS = getGamesFor('newton')
 
 export const APPS = [
     {

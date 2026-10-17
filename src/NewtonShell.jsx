@@ -1,3 +1,5 @@
+import { getGameById } from './games/catalogue.js'
+import GameHost from './games/GameHost.jsx'
 import { useRef, useState } from 'react'
 import '@fontsource/pixelify-sans/500.css'
 import '@fontsource/pixelify-sans/700.css'
@@ -5,6 +7,9 @@ import './NewtonShell.css'
 
 import NewtonLauncher from './NewtonLauncher.jsx'
 import { WORK_APPS, GAME_APPS } from './apps.js'
+
+import JeopardyGame from './games/j-party/JeopardyGame.jsx'
+
 import NewtonFieldNotes from './NewtonFieldNotes.jsx'
 import TerminalApp from './TerminalApp.jsx'
 import CoursesApp from './CoursesApp.jsx'
@@ -69,6 +74,9 @@ export default function NewtonShell() {
 
 
     function renderApp() {
+        const game = getGameById(activeApp, 'newton')
+        if (game?.type === 'internal') return <GameHost game={game} />
+
         switch (activeApp) {
             case 'work':
                 return (
@@ -142,7 +150,7 @@ export default function NewtonShell() {
                             ? '/var/tmp'
                             : activeApp === 'pager'
                                 ? '/var/spool/news'
-                                : (activeApp ?? 'Home')
+                                : (getGameById(activeApp, 'newton')?.name ?? activeApp ?? 'Home')
                     }</span>
                 </header>
 

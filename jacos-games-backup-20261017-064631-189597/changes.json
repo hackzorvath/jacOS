@@ -1,0 +1,27 @@
+{
+  "changed": [
+    "src/DesktopShell.jsx",
+    "src/Dock.jsx",
+    "src/NewtonShell.jsx",
+    "src/TopBar.jsx",
+    "src/apps.js"
+  ],
+  "created": [
+    "src/games/DesktopGamesWindows.css",
+    "src/games/DesktopGamesWindows.jsx",
+    "src/games/GameHost.jsx",
+    "src/games/GamesDockMenu.css",
+    "src/games/GamesDockMenu.jsx",
+    "src/games/JackBoxArt.jsx",
+    "src/games/catalogue.js",
+    "src/games/gamesMenuPosition.js",
+    "src/games/jeopardy/CategoryIcon.jsx",
+    "src/games/jeopardy/JeopardyDesktop.jsx",
+    "src/games/jeopardy/JeopardyGame.bsod.css",
+    "src/games/jeopardy/JeopardyGame.css",
+    "src/games/jeopardy/JeopardyGame.jsx",
+    "src/games/jeopardy/JeopardyGame.newton.css",
+    "src/games/jeopardy/trivia.js",
+    "src/games/jparty.svg"
+  ]
+}

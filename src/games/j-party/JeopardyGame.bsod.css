@@ -1,0 +1,40 @@
+/* Desktop opt-in only. Every rule is scoped; Newton never inherits BSOD blue. */
+.jparty--bsod {
+    --jp-screen: #0000aa;
+    --jp-paper: #0000aa;
+    --jp-ink: #fff;
+    --jp-line: #fff;
+    --jp-button: #c0c0c0;
+    --jp-button-ink: #0000aa;
+    --jp-font: 'Courier New', Courier, monospace;
+    font-size: 0.95rem;
+}
+.jparty--bsod .jeopardy-topbar { padding: 20px 24px 12px; }
+.jparty--bsod .jeopardy-brand { padding: 5px 14px; background: #c0c0c0; color: #0000aa; }
+.jparty--bsod .jeopardy-brand-mark { display: none; }
+.jparty--bsod .jeopardy-brand h1 { font-size: 1.25rem; }
+.jparty--bsod .jeopardy-score { gap: 4px; }
+.jparty--bsod .jeopardy-main { padding: 12px 24px 24px; }
+.jparty--bsod .jeopardy-board-heading { margin-bottom: 20px; }
+.jparty--bsod .jeopardy-board-heading h2 { font-size: 1rem; }
+.jparty--bsod .jeopardy-board-heading p { font-size: 0.85rem; }
+.jparty--bsod .jeopardy-grid { gap: 7px; }
+.jparty--bsod .jeopardy-category { min-height: 66px; padding: 8px 4px; border: 2px solid #c0c0c0; background: #c0c0c0; color: #0000aa; font-size: clamp(0.7rem, 1.6cqw, 1rem); }
+.jparty--bsod .jeopardy-tile { min-height: 64px; border: 1px solid #c0c0c0; border-radius: 0; background: #0000aa; color: #fff; font-size: clamp(1rem, 2.8cqw, 1.6rem); }
+.jparty--bsod .jeopardy-tile--used { border-style: dotted; border-color: #7c7cce; color: #a0a0d8; }
+.jparty--bsod .jeopardy-progress { font-size: 0.76rem; }
+.jparty--bsod .jeopardy-clue-screen { border: 1px solid #fff; }
+.jparty--bsod .jeopardy-transmission { background: #c0c0c0; color: #0000aa; font-weight: 700; }
+.jparty--bsod .jeopardy-clue-meta { border-bottom: 1px dashed #c0c0c0; }
+.jparty--bsod button { border-radius: 0; }
+.jparty--bsod .jeopardy-footer { border-top: 1px dashed #c0c0c0; padding: 8px 24px; }
+.jparty--bsod .jeopardy-footer a { font-size: 0.65rem; }
+@container jparty (max-width: 650px) {
+    .jparty--bsod .jeopardy-main { padding: 10px; }
+    .jparty--bsod .jeopardy-topbar { padding: 12px 10px; }
+    .jparty--bsod .jeopardy-footer { padding: 8px 10px; }
+    .jparty--bsod .jeopardy-category { font-size: 0.85rem; }
+}
+@media (hover: hover) {
+    .jparty--bsod .jeopardy-tile:not(:disabled):hover { background: #fff; color: #0000aa; }
+}

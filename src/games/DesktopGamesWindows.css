@@ -1,0 +1,8 @@
+.desktop-game-window {
+    top: 54px;
+    left: 120px;
+    width: min(1000px, calc(100vw - 145px));
+    height: min(740px, calc(100dvh - 90px));
+}
+.desktop-game-window__icon { width: 24px; height: 24px; object-fit: contain; }
+.desktop-game-window--pocket { width: min(430px, calc(100vw - 145px)); }

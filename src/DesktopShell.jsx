@@ -1,3 +1,4 @@
+import DesktopGamesWindows from './games/DesktopGamesWindows.jsx'
 import { useEffect, useState } from 'react'
 import './App.css'
 
@@ -10,6 +11,7 @@ import CoursesApp from './CoursesApp.jsx'
 import TrashApp from './TrashApp.jsx'
 import MessApp from './MessApp.jsx'
 import DesktopShortcut from './DesktopShortcut.jsx'
+import JeopardyDesktop from './games/j-party/JeopardyDesktop.jsx'
 import { THEMES, loadTheme, saveTheme } from './system/theme.js'
 import WallpaperHost from './wallpapers/WallpaperHost.jsx'
 import {
@@ -170,6 +172,7 @@ export default function DesktopShell() {
             />
 
             <Dock
+                onOpenGame={openApp}
                 onOpenNotes={openNotes}
                 onOpenTerminal={openTerminal}
                 onOpenTrash={openTrash}
@@ -282,6 +285,14 @@ export default function DesktopShell() {
             >
                 <MessApp />
             </DesktopWindow>
+
+            <DesktopGamesWindows
+                windows={windows}
+                onMinimize={id => hideApp(id, 'minimized')}
+                onClose={id => hideApp(id, 'closed')}
+                onFocus={focusApp}
+                getZIndex={getZIndex}
+            />
 
             <DesktopWindow
                 windowId="trash"

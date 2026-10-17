@@ -1,8 +1,16 @@
 import { useEffect, useRef, useState } from 'react'
 import './TopBar.css'
 import { DEFAULT_RADIO_STATION } from './system/radio.js'
+import { getGamesFor } from './games/catalogue.js'
+
+const GAME_LABELS = Object.fromEntries(
+    getGamesFor('desktop')
+        .filter(game => game.type === 'internal')
+        .map(game => [game.id, game.name]),
+)
 
 const APP_LABELS = {
+    ...GAME_LABELS,
     notes: 'Emacs',
     terminal: 'Terminal',
     courses: 'Courses',
@@ -12,6 +20,7 @@ const APP_LABELS = {
 }
 
 const WINDOW_LABELS = {
+    ...GAME_LABELS,
     notes: 'notes.txt — Emacs',
     terminal: 'Terminal',
     courses: 'Courses',
