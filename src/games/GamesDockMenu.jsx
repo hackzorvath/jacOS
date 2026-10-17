@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useId, useLayoutEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { getGamesFor } from './catalogue.js'
-import { JackBoxIcon, MenuClown } from './JackBoxArt.jsx'
+import { JackBoxIcon, MenuClown } from './PixelJackBoxArt.jsx'
 import { placeGamesMenu } from './gamesMenuPosition.js'
 import './GamesDockMenu.css'
 

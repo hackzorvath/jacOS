@@ -1,0 +1,68 @@
+.jack-box-icon { display: block; width: 100%; height: 100%; overflow: visible; }
+.jack-box-icon__lid { transform-origin: 12px 26px; transition: transform 220ms cubic-bezier(.2,.8,.3,1); }
+.jack-box-icon.is-open .jack-box-icon__lid { transform: rotate(-64deg); }
+.jack-box-icon__spring { opacity: 0; transform: translateY(8px); transition: opacity 140ms, transform 220ms; }
+.jack-box-icon.is-open .jack-box-icon__spring { opacity: 1; transform: translateY(0); }
+.dock--logos .jack-games-button__art { overflow: visible; padding: 0; }
+.jack-games-flyout {
+    position: fixed;
+    z-index: 1200;
+    box-sizing: border-box;
+    padding-top: 132px;
+    max-height: var(--jack-max-height);
+    color: #302237;
+    font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+    pointer-events: none;
+    transform-origin: left 60px;
+    animation: jack-games-pop 480ms cubic-bezier(.18,.7,.25,1) both;
+    filter: drop-shadow(0 12px 18px #0005);
+}
+.jack-games-flyout *, .jack-games-flyout *::before, .jack-games-flyout *::after { box-sizing: border-box; }
+.jack-games-flyout.is-closing { animation: jack-games-close 180ms ease-in both; }
+.jack-games-clown { position: absolute; z-index: 2; top: 0; left: 0; display: block; width: 100%; height: 158px; pointer-events: none; }
+.jack-games-board { position: relative; z-index: 1; padding: 15px 10px 10px; border: 3px solid #422e50; border-radius: 7px; background: #f6ebd4; box-shadow: inset 0 0 0 2px #dbbd86, 0 3px 0 #281d36; pointer-events: auto; }
+.jack-games-board__heading { margin: 0 12px 8px; color: #68418b; font-size: 0.75rem; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; }
+.jack-games-list { max-height: max(48px, calc(var(--jack-max-height) - 196px)); overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: #825a9b #ecdfc4; }
+.jack-games-item {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    width: 100%;
+    min-height: 52px;
+    margin: 0;
+    padding: 8px 12px;
+    border: 0;
+    border-radius: 4px;
+    background: transparent;
+    color: #302237;
+    font: inherit;
+    font-size: 0.95rem;
+    font-weight: 650;
+    text-align: left;
+    text-decoration: none;
+    cursor: pointer;
+    touch-action: manipulation;
+}
+.jack-games-item + .jack-games-item { border-top: 1px solid #dfcba8; }
+.jack-games-item img { display: block; width: 32px; height: 32px; object-fit: contain; flex: 0 0 auto; }
+.jack-games-item:hover, .jack-games-item:focus-visible { outline: 0; background: #704595; color: #fff6e5; box-shadow: inset 3px 0 #efa044; }
+.jack-games-item:active { background: #51306f; color: #fff; }
+@keyframes jack-games-pop {
+    0% { opacity: 0; transform: translate(-36px, 48px) scale(.55) rotate(-8deg); }
+    55% { opacity: 1; transform: translate(0, -7px) scale(1.035) rotate(2deg); }
+    78% { transform: translate(0, 3px) scale(.99) rotate(-1deg); }
+    100% { opacity: 1; transform: translate(0) scale(1) rotate(0); }
+}
+@keyframes jack-games-close {
+    from { opacity: 1; transform: translate(0) scale(1); }
+    to { opacity: 0; transform: translate(-32px, 30px) scale(.7); }
+}
+@media (max-height: 450px) {
+    .jack-games-flyout { padding-top: 87px; }
+    .jack-games-clown { height: 108px; }
+    .jack-games-list { max-height: max(48px, calc(var(--jack-max-height) - 151px)); }
+}
+@media (prefers-reduced-motion: reduce) {
+    .jack-games-flyout, .jack-games-flyout.is-closing { animation: none; }
+    .jack-box-icon__lid, .jack-box-icon__spring { transition: none; }
+}

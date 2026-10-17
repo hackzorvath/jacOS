@@ -1,0 +1,11 @@
+{
+  "changed": [
+    "src/games/GamesDockMenu.css",
+    "src/games/GamesDockMenu.jsx"
+  ],
+  "created": [
+    "src/games/PixelJackBoxArt.jsx",
+    "src/games/art/pixel-clown-v1.png",
+    "src/games/art/pixel-jackbox-states-v1.png"
+  ]
+}
