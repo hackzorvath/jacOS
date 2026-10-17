@@ -1,33 +1,52 @@
+import { useEffect, useState } from 'react'
 import './NewtonPager.css'
 
-const SAMPLE_ITEMS = [
-    {
-        id: 'msg-001',
-        source: 'Linux Weekly News',
-        title: 'Kernel patch series improves scheduler latency',
-        summary:
-            'A new patch series aims to reduce latency in certain scheduling scenarios, with promising early benchmarks.',
-        time: '08:42',
-    },
-    {
-        id: 'msg-002',
-        source: 'GamingOnLinux',
-        title: 'New indie strategy game launches on Linux',
-        summary:
-            'A small studio has released a new strategy title with day-one Linux support and Steam Deck verification.',
-        time: '07:15',
-    },
-    {
-        id: 'msg-003',
-        source: 'Indie Dev Log',
-        title: 'Developer shares postmortem on a solo game jam project',
-        summary:
-            'The write-up covers scope control, bugs, and lessons learned from shipping under tight constraints.',
-        time: 'Yesterday',
-    },
-]
+function formatDate(value, includeTime = false) {
+    if (!value) return 'UNKNOWN'
+
+    const date = new Date(value)
+    if (Number.isNaN(date.getTime())) return 'UNKNOWN'
+
+    return date.toLocaleString(undefined, includeTime
+        ? { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' }
+        : { month: 'short', day: 'numeric', year: 'numeric' }
+    )
+}
 
 export default function NewtonPager() {
+    const [articles, setArticles] = useState([])
+    const [lastSync, setLastSync] = useState(null)
+    const [status, setStatus] = useState('loading')
+
+    useEffect(() => {
+        const controller = new AbortController()
+        const url = `${import.meta.env.BASE_URL}news.json`
+
+        fetch(url, { signal: controller.signal, cache: 'no-store' })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`News unavailable (HTTP ${response.status})`)
+                }
+                return response.json()
+            })
+            .then(data => {
+                if (!Array.isArray(data.items)) {
+                    throw new Error('Invalid news.json: missing items array')
+                }
+
+                setArticles(data.items)
+                setLastSync(data.updatedAt ?? null)
+                setStatus('ready')
+            })
+            .catch(error => {
+                if (error.name === 'AbortError') return
+                console.error('Newton Pager:', error)
+                setStatus('error')
+            })
+
+        return () => controller.abort()
+    }, [])
+
     return (
         <section className="newton-pager">
             <header className="newton-pager__header">
@@ -36,40 +55,54 @@ export default function NewtonPager() {
             </header>
 
             <div className="newton-pager__status">
-                <span>LAST SYNC: 08:42</span>
-                <span>{SAMPLE_ITEMS.length.toString().padStart(3, '0')} MSG</span>
+                <span>LAST SYNC: {formatDate(lastSync, true)}</span>
+                <span>{String(articles.length).padStart(3, '0')} MSG</span>
             </div>
 
             <div className="newton-pager__banner">
-                RSS FEED ACTIVE
+                {status === 'loading' ? 'CONNECTING...' :
+                    status === 'error' ? 'SIGNAL LOST' :
+                        'RSS FEED READY'}
             </div>
 
-            <div className="newton-pager__list">
-                {SAMPLE_ITEMS.map((item, index) => (
-                    <article key={item.id} className="newton-pager__item">
-                        <div className="newton-pager__item-meta">
-                            <span>MSG {String(index + 1).padStart(3, '0')}</span>
-                            <span>{item.time}</span>
-                        </div>
+            {status === 'loading' && <p>Receiving transmissions...</p>}
 
-                        <h2>{item.title}</h2>
+            {status === 'error' && (
+                <p>Could not load news.json. Check that the collector has generated public/news.json.</p>
+            )}
 
-                        <p className="newton-pager__source">{item.source}</p>
+            {status === 'ready' && articles.length === 0 && (
+                <p>NO NEW TRANSMISSIONS</p>
+            )}
 
-                        <p className="newton-pager__summary">
-                            {item.summary}
-                        </p>
+            {status === 'ready' && (
+                <div className="newton-pager__list">
+                    {articles.map((item, index) => (
+                        <article key={item.id} className="newton-pager__item">
+                            <div className="newton-pager__item-meta">
+                                <span>MSG {String(index + 1).padStart(3, '0')}</span>
+                                <span>{formatDate(item.publishedAt)}</span>
+                            </div>
 
-                        <button
-                            type="button"
-                            className="newton-pager__button"
-                            onClick={() => window.open('#', '_blank')}
-                        >
-                            Open Link
-                        </button>
-                    </article>
-                ))}
-            </div>
+                            <h2>{item.title}</h2>
+                            <p className="newton-pager__source">{item.source}</p>
+
+                            {item.summary && (
+                                <p className="newton-pager__summary">{item.summary}</p>
+                            )}
+
+                            <a
+                                className="newton-pager__button"
+                                href={item.url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                Open Link
+                            </a>
+                        </article>
+                    ))}
+                </div>
+            )}
         </section>
     )
 }
